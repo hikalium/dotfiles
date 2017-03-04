@@ -1,6 +1,10 @@
 cd `dirname $0`
 
-ln -snf ./dotfiles/.vimrc ../.vimrc
-ln -snf ./dotfiles/.bashrc ../.bashrc
-ln -snf ./dotfiles/.bash_profile ../.bash_profile
-ln -snf ./dotfiles/.tmux.conf ../.tmux.conf
+pwd=`pwd`
+echo $pwd/.vim
+
+ln -snf $pwd/.vimrc ../.vimrc
+ln -snf $pwd/.bashrc ../.bashrc
+ln -snf $pwd/.bash_profile ../.bash_profile
+ln -snf $pwd/.tmux.conf ../.tmux.conf
+ln -snf $pwd/.vim/ftdetect/binary.vim ../.vim/ftdetect/binary.vim
