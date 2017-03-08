@@ -33,6 +33,13 @@ if [ -e $swipl_path ]; then
 	PATH="$PATH":$swipl_path
 fi
 
+# texlive
+texlive_path=/usr/local/texlive/2016basic/bin/x86_64-darwin
+if [ -e $texlive_path ]; then
+	echo "texlive 2016 installed."
+	export PATH="$PATH":$texlive_path
+fi
+
 # export env
 export EDITOR=vim
 
@@ -47,4 +54,14 @@ if [ -n "$SSH_CLIENT" ]; then
 else
 	isssh="${GREEN}[local]${RESET}"
 fi
-export PS1="${isssh} \u@\H: ${CYAN}\w${RESET}\n\$ "
+gitstatus='$(__git_ps1 "(%s)")'
+export PS1="${isssh} \u@\H: ${CYAN}\w${RESET} ${gitstatus} \n\$ "
+
+# Python
+#export PYENV_ROOT="$HOME/.pyenv"
+#export PATH="$PYENV_ROOT/bin:$PATH"
+#eval "$(pyenv init -)"
+
+# git-prompt
+export GIT_PS1_SHOWDIRTYSTATE=true
+source ~/.git-prompt.sh
