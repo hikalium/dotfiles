@@ -65,3 +65,26 @@ export PS1="${isssh} \u@\H: ${CYAN}\w${RESET} ${gitstatus} \n\$ "
 # git-prompt
 export GIT_PS1_SHOWDIRTYSTATE=true
 source ~/.git-prompt.sh
+
+# ls color
+
+case "${OSTYPE}" in
+darwin*)
+	alias ls="ls -G"
+	alias ll="ls -lG"
+	alias la="ls -laG"
+;;
+linux*)
+	alias ls='ls --color'
+	alias ll='ls -l --color'
+	alias la='ls -la --color'
+;;
+esac
+
+# golang
+if [ -x "`which go`" ]; then
+	export GOROOT=`go env GOROOT`
+	export GOPATH=$HOME/go
+	export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+fi
+
