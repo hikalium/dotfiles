@@ -1,9 +1,15 @@
-cd `dirname $0`
+`dirname $0`
 
 pwd=`pwd`
 
-wget -N https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
-ln -snf $pwd/git-prompt.sh ../.git-prompt.sh
+GITCOMPLURL=https://raw.githubusercontent.com/git/git/master/contrib/completion
+
+mkdir tmp
+
+wget -N $GITCOMPLURL/git-prompt.sh -P tmp/
+wget -N $GITCOMPLURL/git-completion.bash -P tmp/
+ln -snf $pwd/tmp/git-prompt.sh ~/.git-prompt.sh
+ln -snf $pwd/tmp/git-completion.bash ~/.git-completion.bash
 
 ln -snf $pwd/.vimrc ../.vimrc
 ln -snf $pwd/.bashrc ../.bashrc

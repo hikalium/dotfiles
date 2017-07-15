@@ -88,3 +88,5 @@ if [ -x "`which go`" ]; then
 	export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 fi
 
+# git completion
+source ~/.git-completion.bash
