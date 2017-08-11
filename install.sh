@@ -18,3 +18,6 @@ ln -snf $pwd/.tmux.conf ../.tmux.conf
 
 mkdir -p ../.vim/ftdetect
 ln -snf $pwd/.vim/ftdetect/binary.vim ../.vim/ftdetect/binary.vim
+
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
