@@ -82,9 +82,17 @@ linux*)
 esac
 
 # golang
-if [ -x "`which go`" ]; then
+if [ -x "`which go 2>&1`" ]; then
 	export GOROOT=`go env GOROOT`
 	export GOPATH=$HOME/go
 	export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+fi
+
+# git completion
+source ~/.git-completion.bash
+
+if [ -f ~/.bashrc.local ]; then
+	source ~/.bashrc.local
+	echo "~/.bashrc.local loaded"
 fi
 
