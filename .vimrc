@@ -20,6 +20,9 @@ call plug#begin()
 	Plug 'groenewege/vim-less'
 	Plug 'Shougo/vinarise'
 	Plug 'fatih/vim-go'
+	Plug 'vim-syntastic/syntastic'
+	Plug 'Lokaltog/powerline'
+	"Plug 'powerline/powerline'
 	"Plug 'justmao945/vim-clang'
 	"Plug 'Shougo/neocomplete.vim'
 call plug#end()
@@ -49,3 +52,24 @@ syntax on
 au FileType go compiler go
 filetype plugin on
 let g:go_fmt_command = "goimports"
+
+" vim-syntastic/syntastic
+set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" powerline status
+"let s:prev_seg = 'paste_indicator'
+"for seg in ['fileformat', 'fileencoding', 'filetype', 'lineinfo']
+"	call Pl#Theme#InsertSegment(seg, 'after', s:prev_seg)
+"	let s:prev_seg = seg
+"endfor
+"unlet s:prev_seg
+let g:syntastic_mode_map = {
+    \ "mode": "active",
+    \ "passive_filetypes": ["html"] }
