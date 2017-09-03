@@ -96,3 +96,5 @@ if [ -f ~/.bashrc.local ]; then
 	echo "~/.bashrc.local loaded"
 fi
 
+# alias
+alias vi=vim
