@@ -74,3 +74,4 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_mode_map = {
     \ "mode": "active",
     \ "passive_filetypes": ["html"] }
+let g:syntastic_cpp_compiler_options=" -std=c++1z"
