@@ -2,8 +2,18 @@ syntax on
 set nocompatible
 set backspace=indent,eol,start
 set laststatus=2
+
+au BufNewFile,BufRead *.c set filetype=c
+au BufNewFile,BufRead *.cpp set filetype=cpp
+au BufNewFile,BufRead *.cc set filetype=cpp
+au BufNewFile,BufRead *.h set filetype=c
+
 set tabstop=4
 set shiftwidth=4
+au FileType cpp set tabstop=2
+au FileType cpp set shiftwidth=2
+au FileType cpp set expandtab
+
 set number
 set hlsearch
 set printoptions=number:y,left:10mm
@@ -30,9 +40,6 @@ call plug#end()
 
 "let g:neocomplete#enable_at_startup = 1
 let g:js_indent_typescript = 0
-au BufNewFile,BufRead *.c set filetype=c
-au BufNewFile,BufRead *.cpp set filetype=cpp
-au BufNewFile,BufRead *.h set filetype=c
 set noautoindent
 set nosmartindent
 setlocal indentexpr=
@@ -75,3 +82,17 @@ let g:syntastic_mode_map = {
     \ "mode": "active",
     \ "passive_filetypes": ["html"] }
 let g:syntastic_cpp_compiler_options=" -std=c++1z"
+
+function! CPPCodeCleanup()
+  echo "Cleanup cpp code"
+  let l:lines="all"
+  let g:clang_format_fallback_style = 'Google'
+  :pyf /usr/local/share/clang/clang-format.py
+endfunction
+command! CPPCodeCleanup call CPPCodeCleanup()
+
+autocmd BufWrite *.{cpp} :CPPCodeCleanup
+autocmd BufWrite *.{cc} :CPPCodeCleanup
+autocmd BufWrite *.{hpp} :CPPCodeCleanup
+autocmd BufWrite *.{c} :CPPCodeCleanup
+autocmd BufWrite *.{h} :CPPCodeCleanup
