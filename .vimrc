@@ -123,4 +123,4 @@ autocmd BufWrite *.{hpp} :CPPCodeCleanup
 autocmd BufWrite *.{c} :CPPCodeCleanup
 autocmd BufWrite *.{h} :CPPCodeCleanup
 
-autocmd BufWrite *.{tex} :!make
+autocmd BufWritePost *.{tex} :!make
