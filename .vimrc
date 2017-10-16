@@ -6,7 +6,7 @@ set laststatus=2
 au BufNewFile,BufRead *.c set filetype=c
 au BufNewFile,BufRead *.cpp set filetype=cpp
 au BufNewFile,BufRead *.cc set filetype=cpp
-au BufNewFile,BufRead *.h set filetype=c
+au BufNewFile,BufRead *.h set filetype=cpp
 
 set tabstop=4
 set shiftwidth=4
@@ -96,3 +96,12 @@ autocmd BufWrite *.{cc} :CPPCodeCleanup
 autocmd BufWrite *.{hpp} :CPPCodeCleanup
 autocmd BufWrite *.{c} :CPPCodeCleanup
 autocmd BufWrite *.{h} :CPPCodeCleanup
+
+if $TMUX != ""
+	augroup titlesettings
+		autocmd!
+		autocmd BufEnter * call system("tmux rename-window " . "'[" . expand("%:t") . "]'")
+		autocmd VimLeave * call system("tmux rename-window bash")
+		autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
+	augroup END
+endif
