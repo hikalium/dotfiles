@@ -1,7 +1,30 @@
 syntax on
 set nocompatible
 set backspace=indent,eol,start
+
+"
+" Status Line Settings
+"
+
+" ファイル名表示
+set statusline=%F
+" 変更チェック表示
+set statusline+=%m
+" 読み込み専用かどうか表示
+set statusline+=%r
+" ヘルプページなら[HELP]と表示
+set statusline+=%h
+" プレビューウインドウなら[Prevew]と表示
+set statusline+=%w
+set statusline+=:%l
+" これ以降は右寄せ表示
+set statusline+=%=
+" file encoding
+set statusline+=\ %Y[%{&fileencoding}]
+" ステータスラインを常に表示(0:表示しない、1:2つ以上ウィンドウがある時だけ表示)
 set laststatus=2
+
+hi Search cterm=NONE ctermfg=black ctermbg=yellow
 
 au BufNewFile,BufRead *.c set filetype=c
 au BufNewFile,BufRead *.cpp set filetype=cpp
@@ -13,6 +36,9 @@ set shiftwidth=4
 au FileType cpp set tabstop=2
 au FileType cpp set shiftwidth=2
 au FileType cpp set expandtab
+au FileType c set tabstop=2
+au FileType c set shiftwidth=2
+au FileType c set expandtab
 
 set number
 set hlsearch
@@ -62,7 +88,7 @@ filetype plugin on
 let g:go_fmt_command = "goimports"
 
 " vim-syntastic/syntastic
-set statusline+=%#warningmsg#
+"set statusline+=%#warningmsg#
 "set statusline+=%{SyntasticStatuslineFlag()}
 "set statusline+=%*
 
@@ -105,3 +131,5 @@ if $TMUX != ""
 		autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
 	augroup END
 endif
+
+autocmd BufWritePost *.{tex} :!make
