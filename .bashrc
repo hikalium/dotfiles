@@ -36,7 +36,6 @@ fi
 # texlive
 texlive_path=/usr/local/texlive/2016basic/bin/x86_64-darwin
 if [ -e $texlive_path ]; then
-	echo "texlive 2016 installed."
 	export PATH="$PATH":$texlive_path
 fi
 
@@ -93,7 +92,6 @@ source ~/.git-completion.bash
 
 if [ -f ~/.bashrc.local ]; then
 	source ~/.bashrc.local
-	echo "~/.bashrc.local loaded"
 fi
 
 # alias

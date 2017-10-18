@@ -24,7 +24,8 @@ set statusline+=\ %Y[%{&fileencoding}]
 " ステータスラインを常に表示(0:表示しない、1:2つ以上ウィンドウがある時だけ表示)
 set laststatus=2
 
-hi Search cterm=NONE ctermfg=black ctermbg=yellow
+highlight Search cterm=NONE ctermfg=black ctermbg=yellow
+highlight StatusLine term=NONE cterm=NONE ctermfg=black ctermbg=green
 
 au BufNewFile,BufRead *.c set filetype=c
 au BufNewFile,BufRead *.cpp set filetype=cpp
@@ -39,6 +40,8 @@ au FileType cpp set expandtab
 au FileType c set tabstop=2
 au FileType c set shiftwidth=2
 au FileType c set expandtab
+
+au FileType fortran set noexpandtab
 
 set number
 set hlsearch
@@ -133,3 +136,6 @@ if $TMUX != ""
 endif
 
 autocmd BufWritePost *.{tex} :!make
+
+set wildmode=list:longest
+
