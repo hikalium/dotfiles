@@ -65,6 +65,7 @@ call plug#begin()
 	Plug 'fatih/vim-go'
 	Plug 'vim-syntastic/syntastic'
 	Plug 'Lokaltog/powerline'
+	Plug 'rhysd/vim-clang-format'
 	"Plug 'powerline/powerline'
 	"Plug 'justmao945/vim-clang'
 	"Plug 'Shougo/neocomplete.vim'
@@ -115,19 +116,22 @@ let g:syntastic_mode_map = {
     \ "passive_filetypes": ["html"] }
 let g:syntastic_cpp_compiler_options=" -std=c++1z"
 
-function! CPPCodeCleanup()
-  echo "Cleanup cpp code"
-  let l:lines="all"
-  let g:clang_format_fallback_style = 'Google'
-  :pyf /usr/local/share/clang/clang-format.py
-endfunction
-command! CPPCodeCleanup call CPPCodeCleanup()
+if has('win32')
+	let s:ostype = "Win"
+elseif has('mac')
+	let s:ostype = "Mac"
+else
+	let s:ostype = "Linux"
+endif
 
-autocmd BufWrite *.{cpp} :CPPCodeCleanup
-autocmd BufWrite *.{cc} :CPPCodeCleanup
-autocmd BufWrite *.{hpp} :CPPCodeCleanup
-"autocmd BufWrite *.{c} :CPPCodeCleanup
-"autocmd BufWrite *.{h} :CPPCodeCleanup
+let g:clang_format#code_style = 'Google'
+let g:clang_format#detect_style_file = 1
+
+autocmd BufWrite *.{cpp} :ClangFormat
+autocmd BufWrite *.{cc} :ClangFormat
+autocmd BufWrite *.{hpp} :ClangFormat
+autocmd BufWrite *.{c} :ClangFormat
+autocmd BufWrite *.{h} :ClangFormat
 
 if $TMUX != ""
 	augroup titlesettings
