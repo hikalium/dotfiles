@@ -40,6 +40,9 @@ au FileType cpp set expandtab
 au FileType c set tabstop=2
 au FileType c set shiftwidth=2
 au FileType c set expandtab
+au FileType markdown set tabstop=2
+au FileType markdown set shiftwidth=2
+au FileType markdown set expandtab
 
 au FileType fortran set noexpandtab
 
@@ -123,8 +126,8 @@ command! CPPCodeCleanup call CPPCodeCleanup()
 autocmd BufWrite *.{cpp} :CPPCodeCleanup
 autocmd BufWrite *.{cc} :CPPCodeCleanup
 autocmd BufWrite *.{hpp} :CPPCodeCleanup
-autocmd BufWrite *.{c} :CPPCodeCleanup
-autocmd BufWrite *.{h} :CPPCodeCleanup
+"autocmd BufWrite *.{c} :CPPCodeCleanup
+"autocmd BufWrite *.{h} :CPPCodeCleanup
 
 if $TMUX != ""
 	augroup titlesettings
