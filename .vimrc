@@ -1,18 +1,50 @@
 syntax on
 set nocompatible
 set backspace=indent,eol,start
+
+"
+" Status Line Settings
+"
+
+" ファイル名表示
+set statusline=%F
+" 変更チェック表示
+set statusline+=%m
+" 読み込み専用かどうか表示
+set statusline+=%r
+" ヘルプページなら[HELP]と表示
+set statusline+=%h
+" プレビューウインドウなら[Prevew]と表示
+set statusline+=%w
+set statusline+=:%l
+" これ以降は右寄せ表示
+set statusline+=%=
+" file encoding
+set statusline+=\ %Y[%{&fileencoding}]
+" ステータスラインを常に表示(0:表示しない、1:2つ以上ウィンドウがある時だけ表示)
 set laststatus=2
+
+highlight Search cterm=NONE ctermfg=black ctermbg=yellow
+highlight StatusLine term=NONE cterm=NONE ctermfg=black ctermbg=green
 
 au BufNewFile,BufRead *.c set filetype=c
 au BufNewFile,BufRead *.cpp set filetype=cpp
 au BufNewFile,BufRead *.cc set filetype=cpp
-au BufNewFile,BufRead *.h set filetype=c
+au BufNewFile,BufRead *.h set filetype=cpp
 
 set tabstop=4
 set shiftwidth=4
 au FileType cpp set tabstop=2
 au FileType cpp set shiftwidth=2
 au FileType cpp set expandtab
+au FileType c set tabstop=2
+au FileType c set shiftwidth=2
+au FileType c set expandtab
+au FileType markdown set tabstop=2
+au FileType markdown set shiftwidth=2
+au FileType markdown set expandtab
+
+au FileType fortran set noexpandtab
 
 set number
 set hlsearch
@@ -33,6 +65,7 @@ call plug#begin()
 	Plug 'fatih/vim-go'
 	Plug 'vim-syntastic/syntastic'
 	Plug 'Lokaltog/powerline'
+	Plug 'rhysd/vim-clang-format'
 	"Plug 'powerline/powerline'
 	"Plug 'justmao945/vim-clang'
 	"Plug 'Shougo/neocomplete.vim'
@@ -62,7 +95,7 @@ filetype plugin on
 let g:go_fmt_command = "goimports"
 
 " vim-syntastic/syntastic
-set statusline+=%#warningmsg#
+"set statusline+=%#warningmsg#
 "set statusline+=%{SyntasticStatuslineFlag()}
 "set statusline+=%*
 
@@ -83,16 +116,33 @@ let g:syntastic_mode_map = {
     \ "passive_filetypes": ["html"] }
 let g:syntastic_cpp_compiler_options=" -std=c++1z"
 
-function! CPPCodeCleanup()
-  echo "Cleanup cpp code"
-  let l:lines="all"
-  let g:clang_format_fallback_style = 'Google'
-  :pyf /usr/local/share/clang/clang-format.py
-endfunction
-command! CPPCodeCleanup call CPPCodeCleanup()
+if has('win32')
+	let s:ostype = "Win"
+elseif has('mac')
+	let s:ostype = "Mac"
+else
+	let s:ostype = "Linux"
+endif
 
-autocmd BufWrite *.{cpp} :CPPCodeCleanup
-autocmd BufWrite *.{cc} :CPPCodeCleanup
-autocmd BufWrite *.{hpp} :CPPCodeCleanup
-autocmd BufWrite *.{c} :CPPCodeCleanup
-autocmd BufWrite *.{h} :CPPCodeCleanup
+let g:clang_format#code_style = 'Google'
+let g:clang_format#detect_style_file = 1
+
+autocmd BufWrite *.{cpp} :ClangFormat
+autocmd BufWrite *.{cc} :ClangFormat
+autocmd BufWrite *.{hpp} :ClangFormat
+autocmd BufWrite *.{c} :ClangFormat
+autocmd BufWrite *.{h} :ClangFormat
+
+if $TMUX != ""
+	augroup titlesettings
+		autocmd!
+		autocmd BufEnter * call system("tmux rename-window " . "'[" . expand("%:t") . "]'")
+		autocmd VimLeave * call system("tmux rename-window bash")
+		autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
+	augroup END
+endif
+
+autocmd BufWritePost *.{tex} :!make
+
+set wildmode=list:longest
+
