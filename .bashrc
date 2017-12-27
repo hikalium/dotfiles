@@ -55,7 +55,7 @@ else
 	isssh="${GREEN}[local]${RESET}"
 fi
 gitstatus='$(__git_ps1 "(%s)")'
-export PS1="${isssh} \u@\H: ${CYAN}\w${RESET} ${gitstatus} \n\$ "
+export PS1="${CYAN}[\t]${RESET}\n${isssh} \u@\H: ${CYAN}\w${RESET} ${gitstatus} \n\$ "
 
 # Python
 #export PYENV_ROOT="$HOME/.pyenv"
