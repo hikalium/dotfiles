@@ -24,8 +24,54 @@ set statusline+=\ %Y[%{&fileencoding}]
 " ステータスラインを常に表示(0:表示しない、1:2つ以上ウィンドウがある時だけ表示)
 set laststatus=2
 
-highlight Search cterm=NONE ctermfg=black ctermbg=yellow
-highlight StatusLine term=NONE cterm=NONE ctermfg=black ctermbg=green
+highlight Search cterm=NONE ctermfg=black ctermbg=191
+highlight Visual cterm=NONE ctermfg=black ctermbg=191
+highlight StatusLine term=NONE cterm=NONE ctermfg=230 ctermbg=22
+highlight VertSplit term=NONE cterm=NONE ctermfg=22 ctermbg=NONE
+
+hi TabLineFill ctermfg=22 ctermbg=22
+hi clear TabLine
+hi TabLine ctermfg=230 ctermbg=22
+hi TabLineSel ctermfg=230 ctermbg=166
+
+" 各タブページのカレントバッファ名+αを表示
+function! s:tabpage_label(n)
+	" t:title と言う変数があったらそれを使う
+	let title = gettabvar(a:n, 'title')
+	if title !=# ''
+		return title
+	endif
+
+	" タブページ内のバッファのリスト
+	let bufnrs = tabpagebuflist(a:n)
+
+	" カレントタブページかどうかでハイライトを切り替える
+	let hi = a:n is tabpagenr() ? '%#TabLineSel#' : '%#TabLine#'
+
+	" タブページ内に変更ありのバッファがあったら
+	" '+' を付ける
+	let mod = len(filter(copy(bufnrs), 'getbufvar(v:val, "&modified")')) ? '+' : ''
+
+	" カレントバッファ
+	let curbufnr = bufnrs[tabpagewinnr(a:n) - 1]  " tabpagewinnr() は 1 origin
+	let fname = pathshorten(bufname(curbufnr))
+
+	let label = fname . mod
+
+	return '%' . a:n . 'T' . hi . ' [' . label . '] ' . '%T%#TabLineFill#'
+endfunction
+
+function! MakeTabLine()
+	let titles = map(range(1, tabpagenr('$')), 's:tabpage_label(v:val)')
+	let sep = ' '  " タブ間の区切り
+	let tabpages = join(titles, sep) . sep . '%#TabLineFill#%T'
+	let info = 'vim'  " 好きな情報を入れる
+	return tabpages . '%=%#TabLine#' . info  " タブリストを左に、情報を右に表示
+endfunction
+
+set showtabline=2
+set guioptions-=e
+set tabline=%!MakeTabLine()
 
 au BufNewFile,BufRead *.c set filetype=c
 au BufNewFile,BufRead *.cpp set filetype=cpp
@@ -66,6 +112,7 @@ call plug#begin()
 	Plug 'vim-syntastic/syntastic'
 	Plug 'Lokaltog/powerline'
 	Plug 'rhysd/vim-clang-format'
+	Plug 'guns/xterm-color-table.vim'
 	"Plug 'powerline/powerline'
 	"Plug 'justmao945/vim-clang'
 	"Plug 'Shougo/neocomplete.vim'
@@ -145,4 +192,13 @@ endif
 autocmd BufWritePost *.{tex} :!make
 
 set wildmode=list:longest
+
+" Tabでタブを移動できるように
+" http://blog.remora.cx/2012/09/use-tabpage.html
+nnoremap <S-Tab> gt
+nnoremap <Tab><Tab> gT
+for i in range(1, 9)
+	execute 'nnoremap <Tab>' . i . ' ' . i . 'gt'
+endfor
+
 
