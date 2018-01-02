@@ -61,11 +61,16 @@ function! s:tabpage_label(n)
 	return '%' . a:n . 'T' . hi . ' [' . label . '] ' . '%T%#TabLineFill#'
 endfunction
 
+function! ChompedSystem( ... )
+    return substitute(call('system', a:000), '\n\+$', '', '')
+endfunction
+
 function! MakeTabLine()
 	let titles = map(range(1, tabpagenr('$')), 's:tabpage_label(v:val)')
 	let sep = ' '  " タブ間の区切り
 	let tabpages = join(titles, sep) . sep . '%#TabLineFill#%T'
-	let info = 'vim'  " 好きな情報を入れる
+	let hostname = ChompedSystem('hostname')
+	let info = 'vim@' . hostname  " 好きな情報を入れる
 	return tabpages . '%=%#TabLine#' . info  " タブリストを左に、情報を右に表示
 endfunction
 
@@ -179,6 +184,17 @@ autocmd BufWrite *.{cc} :ClangFormat
 autocmd BufWrite *.{hpp} :ClangFormat
 autocmd BufWrite *.{c} :ClangFormat
 autocmd BufWrite *.{h} :ClangFormat
+
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+
+inoremap <Up> <Nop>
+inoremap <Down> <Nop>
+inoremap <Left> <Nop>
+inoremap <Right> <Nop>
+
 
 if $TMUX != ""
 	augroup titlesettings
