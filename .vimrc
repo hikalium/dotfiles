@@ -185,15 +185,15 @@ autocmd BufWrite *.{hpp} :ClangFormat
 autocmd BufWrite *.{c} :ClangFormat
 autocmd BufWrite *.{h} :ClangFormat
 
-noremap <Up> <Nop>
-noremap <Down> <Nop>
-noremap <Left> <Nop>
-noremap <Right> <Nop>
+"noremap <Up> <Nop>
+"noremap <Down> <Nop>
+"noremap <Left> <Nop>
+"noremap <Right> <Nop>
 
-inoremap <Up> <Nop>
-inoremap <Down> <Nop>
-inoremap <Left> <Nop>
-inoremap <Right> <Nop>
+"inoremap <Up> <Nop>
+"inoremap <Down> <Nop>
+"inoremap <Left> <Nop>
+"inoremap <Right> <Nop>
 
 
 if $TMUX != ""
@@ -205,7 +205,7 @@ if $TMUX != ""
 	augroup END
 endif
 
-autocmd BufWritePost *.{tex} :!make
+"autocmd BufWritePost *.{tex} :!make
 
 set wildmode=list:longest
 

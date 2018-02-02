@@ -53,7 +53,8 @@ if [ -n "$SSH_CLIENT" ]; then
 else
 	isssh="${GREEN}[local]${RESET}"
 fi
-gitstatus='$(__git_ps1 "(%s)")'
+#gitstatus='$(__git_ps1 "(%s)")'
+gitstatus=
 export PS1="${CYAN}[\t]${RESET}\n${isssh} \u@\H: ${CYAN}\w${RESET} ${gitstatus} \n\$ "
 
 # Python
@@ -62,8 +63,8 @@ export PS1="${CYAN}[\t]${RESET}\n${isssh} \u@\H: ${CYAN}\w${RESET} ${gitstatus} 
 #eval "$(pyenv init -)"
 
 # git-prompt
-export GIT_PS1_SHOWDIRTYSTATE=true
-source ~/.git-prompt.sh
+#export GIT_PS1_SHOWDIRTYSTATE=true
+#source ~/.git-prompt.sh
 
 # ls color
 
@@ -90,8 +91,11 @@ fi
 # git completion
 source ~/.git-completion.bash
 
-if [ -f ~/.bashrc.local ]; then
-	source ~/.bashrc.local
+LOCAL_BASH_RC_PATH=~/dotfiles/hosts/bashrc.`hostname`
+if [ -f $LOCAL_BASH_RC_PATH ]; then
+	source $LOCAL_BASH_RC_PATH
+else
+	echo "local bash rc not found."
 fi
 
 # alias

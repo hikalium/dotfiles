@@ -1,4 +1,5 @@
 source ~/.bashrc
+
 export PATH=/Applications/azprolog.app/Contents/az_home/bin:$PATH
 export AZProlog=/Applications/azprolog.app/Contents/az_home
 export DYLD_LIBRARY_PATH=/usr/lib:/Applications/azprolog.app/Contents/az_home/lib
@@ -13,3 +14,5 @@ if [ -f '/Users/hikalium/Downloads/google-cloud-sdk/path.bash.inc' ]; then sourc
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/hikalium/Downloads/google-cloud-sdk/completion.bash.inc' ]; then source '/Users/hikalium/Downloads/google-cloud-sdk/completion.bash.inc'; fi
+
+export PATH="$HOME/.cargo/bin:$PATH"

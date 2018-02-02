@@ -1,0 +1,4 @@
+# Local bash rc
+export PATH="$PATH:/Users/hikalium/t03/repos/depot_tools"
+export PATH="$PATH:/Users/hikalium/t03/carch/bin"
+export PATH="$PATH:/Users/hikalium/t03/sqlite-tools-osx-x86-3210000"
