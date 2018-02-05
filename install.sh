@@ -22,7 +22,7 @@ ln -snf $pwd/.vimrc ../.vimrc
 # .bash_profile
 PATH_REAL_LOCAL_BASH_PROFILE=~/dotfiles/hosts/bash_profile.`hostname`
 if [ ! -f $PATH_REAL_LOCAL_BASH_PROFILE ]; then
-	if [ ! -L ~/.bash_profile ]; then
+	if [ ! -L ~/.bash_profile ] && [ -f ~/.bash_profile ]; then
 		cp ~/.bash_profile $PATH_REAL_LOCAL_BASH_PROFILE
 	else
 		echo "source ~/.bashrc" > $PATH_REAL_LOCAL_BASH_PROFILE
@@ -34,7 +34,7 @@ ls -la ~/.bash_profile
 # .bashrc and .bashrc.hostname
 PATH_REAL_LOCAL_BASH_RC=~/dotfiles/hosts/bashrc.`hostname`
 if [ ! -f $PATH_REAL_LOCAL_BASH_RC ]; then
-	if [ ! -L ~/.bashrc ]; then
+	if [ ! -L ~/.bashrc ] && [ -f ~/.bashrc ]; then
 		cp ~/.bashrc $PATH_REAL_LOCAL_BASH_RC
 	else
 		echo "# Local bash rc" > $PATH_REAL_LOCAL_BASH_RC
