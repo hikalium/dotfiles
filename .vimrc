@@ -28,6 +28,8 @@ highlight Search cterm=NONE ctermfg=black ctermbg=191
 highlight Visual cterm=NONE ctermfg=black ctermbg=191
 highlight StatusLine term=NONE cterm=NONE ctermfg=230 ctermbg=22
 highlight VertSplit term=NONE cterm=NONE ctermfg=22 ctermbg=NONE
+highlight NonText term=NONE cterm=NONE ctermfg=22 ctermbg=NONE
+highlight SpecialKey term=NONE cterm=NONE ctermfg=23 ctermbg=NONE
 
 hi TabLineFill ctermfg=22 ctermbg=22
 hi clear TabLine
@@ -94,6 +96,16 @@ au FileType c set expandtab
 au FileType markdown set tabstop=2
 au FileType markdown set shiftwidth=2
 au FileType markdown set expandtab
+
+au FileType html set tabstop=4
+au FileType html set shiftwidth=4
+au FileType html set expandtab
+au FileType html set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
+au FileType html set list
+au FileType html set noautoindent
+au FileType html set nocindent
+au FileType html set nosmartindent
+au FileType html set indentexpr=
 
 au FileType fortran set noexpandtab
 
@@ -179,11 +191,11 @@ endif
 let g:clang_format#code_style = 'Google'
 let g:clang_format#detect_style_file = 1
 
-autocmd BufWrite *.{cpp} :ClangFormat
-autocmd BufWrite *.{cc} :ClangFormat
-autocmd BufWrite *.{hpp} :ClangFormat
-autocmd BufWrite *.{c} :ClangFormat
-autocmd BufWrite *.{h} :ClangFormat
+"autocmd BufWrite *.{cpp} :ClangFormat
+"autocmd BufWrite *.{cc} :ClangFormat
+"autocmd BufWrite *.{hpp} :ClangFormat
+"autocmd BufWrite *.{c} :ClangFormat
+"autocmd BufWrite *.{h} :ClangFormat
 
 "noremap <Up> <Nop>
 "noremap <Down> <Nop>
