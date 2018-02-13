@@ -130,6 +130,7 @@ call plug#begin()
 	Plug 'Lokaltog/powerline'
 	Plug 'rhysd/vim-clang-format'
 	Plug 'guns/xterm-color-table.vim'
+	Plug 'rust-lang/rust.vim'
 	"Plug 'powerline/powerline'
 	"Plug 'justmao945/vim-clang'
 	"Plug 'Shougo/neocomplete.vim'
@@ -167,6 +168,9 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+let g:rustfmt_autosave = 1
+let g:rustfmt_command = 'rustup run nightly rustfmt'
 
 " powerline status
 "let s:prev_seg = 'paste_indicator'
