@@ -2,7 +2,7 @@ source ~/.bashrc
 
 export PATH=/Applications/azprolog.app/Contents/az_home/bin:$PATH
 export AZProlog=/Applications/azprolog.app/Contents/az_home
-export DYLD_LIBRARY_PATH=/usr/lib:/Applications/azprolog.app/Contents/az_home/lib
+#export DYLD_LIBRARY_PATH=/usr/lib:/Applications/azprolog.app/Contents/az_home/lib
 
 # Setting PATH for Python 3.5
 # The original version is saved in .bash_profile.pysave

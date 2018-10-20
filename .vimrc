@@ -2,6 +2,17 @@ syntax on
 set nocompatible
 set backspace=indent,eol,start
 
+set autoread
+if has("autocmd")
+  augroup vimrc-checktime
+    autocmd!
+    autocmd InsertEnter,WinEnter * checktime
+  augroup END
+endif
+
+" Disable Ex mode
+map Q <Nop>
+
 "
 " Status Line Settings
 "
@@ -30,6 +41,7 @@ highlight StatusLine term=NONE cterm=NONE ctermfg=230 ctermbg=22
 highlight VertSplit term=NONE cterm=NONE ctermfg=22 ctermbg=NONE
 highlight NonText term=NONE cterm=NONE ctermfg=22 ctermbg=NONE
 highlight SpecialKey term=NONE cterm=NONE ctermfg=23 ctermbg=NONE
+highlight MatchParen ctermbg=4
 
 hi TabLineFill ctermfg=22 ctermbg=22
 hi clear TabLine
@@ -84,6 +96,7 @@ au BufNewFile,BufRead *.c set filetype=c
 au BufNewFile,BufRead *.cpp set filetype=cpp
 au BufNewFile,BufRead *.cc set filetype=cpp
 au BufNewFile,BufRead *.h set filetype=cpp
+au BufNewFile,BufRead *.ejs set filetype=html
 
 set tabstop=4
 set shiftwidth=4
@@ -101,7 +114,7 @@ au FileType html set tabstop=4
 au FileType html set shiftwidth=4
 au FileType html set expandtab
 au FileType html set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
-au FileType html set list
+"au FileType html set list
 au FileType html set noautoindent
 au FileType html set nocindent
 au FileType html set nosmartindent
@@ -131,6 +144,8 @@ call plug#begin()
 	Plug 'rhysd/vim-clang-format'
 	Plug 'guns/xterm-color-table.vim'
 	Plug 'rust-lang/rust.vim'
+	Plug 'Vimjas/vim-python-pep8-indent'
+	"Plug 'luochen1990/rainbow'
 	"Plug 'powerline/powerline'
 	"Plug 'justmao945/vim-clang'
 	"Plug 'Shougo/neocomplete.vim'
@@ -180,7 +195,7 @@ let g:rustfmt_command = 'rustup run nightly rustfmt'
 "endfor
 "unlet s:prev_seg
 let g:syntastic_mode_map = {
-    \ "mode": "active",
+    \ "mode": "passive",
     \ "passive_filetypes": ["html"] }
 let g:syntastic_cpp_compiler_options=" -std=c++1z"
 
@@ -205,6 +220,10 @@ let g:clang_format#detect_style_file = 1
 "noremap <Down> <Nop>
 "noremap <Left> <Nop>
 "noremap <Right> <Nop>
+"map <S-Left> <c-w>h
+"map <S-Right> <c-w>l
+"nnoremap <Tab><Tab> gT
+nnoremap <Return><Return> <c-w><c-w>
 
 "inoremap <Up> <Nop>
 "inoremap <Down> <Nop>
@@ -233,4 +252,10 @@ for i in range(1, 9)
 	execute 'nnoremap <Tab>' . i . ' ' . i . 'gt'
 endfor
 
+cnoreabbrev tn tabnew
+cnoreabbrev vs vsplit
 
+set wildignore+=*.pdf,*.o,*.obj,*.jpg,*.png
+
+set splitbelow
+set splitright
