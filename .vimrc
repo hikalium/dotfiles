@@ -239,3 +239,4 @@ au FileType html set nosmartindent
 
 au FileType fortran set noexpandtab
 
+au FileType yaml setlocal ts=4 sts=4 sw=4 expandtab
