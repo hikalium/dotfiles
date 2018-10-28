@@ -16,22 +16,6 @@ esac
 	alias egrep='egrep --color=auto'
 fi
 
-
-# nodejs
-nvm_path=~/.nvm/nvm.sh
-if [ -e $nvm_path ]; then
-	echo "nodejs installed."
-	source ~/.nvm/nvm.sh
-	nvm use v6.4.0
-fi
-
-# prolog
-swipl_path=/Applications/SWI-Prolog.app/Contents/MacOS
-if [ -e $swipl_path ]; then
-	echo "swi-prolog installed."
-	PATH="$PATH":$swipl_path
-fi
-
 # texlive
 texlive_path=/usr/local/texlive/2016basic/bin/x86_64-darwin
 if [ -e $texlive_path ]; then
