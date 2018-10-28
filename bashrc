@@ -1,4 +1,3 @@
-
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -90,13 +89,6 @@ fi
 
 # git completion
 source ~/.git-completion.bash
-
-LOCAL_BASH_RC_PATH=~/dotfiles/hosts/bashrc.`hostname`
-if [ -f $LOCAL_BASH_RC_PATH ]; then
-	source $LOCAL_BASH_RC_PATH
-else
-	echo "local bash rc not found."
-fi
 
 # alias
 alias vi=vim

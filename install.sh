@@ -40,9 +40,10 @@ if [ ! -f $PATH_REAL_LOCAL_BASH_RC ]; then
 		echo "# Local bash rc" > $PATH_REAL_LOCAL_BASH_RC
 	fi
 fi
-ln -snf $pwd/.bashrc ../.bashrc
+ln -snf $pwd/bashrc ~/.bashrc.common
+ls -la ~/.bashrc.common
+ln -snf $PATH_REAL_LOCAL_BASH_RC ~/.bashrc
 ls -la ~/.bashrc
-ls -la $PATH_REAL_LOCAL_BASH_RC
 
 ln -snf $pwd/.tmux.conf ../.tmux.conf
 ln -snf $pwd/.tmux.osx.conf ../.tmux.osx.conf
