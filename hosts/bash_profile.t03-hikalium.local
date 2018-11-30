@@ -16,3 +16,6 @@ if [ -f '/Users/hikalium/google-cloud-sdk/path.bash.inc' ]; then source '/Users/
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/hikalium/google-cloud-sdk/completion.bash.inc' ]; then source '/Users/hikalium/google-cloud-sdk/completion.bash.inc'; fi
+
+# opam configuration
+test -r /Users/hikalium/.opam/opam-init/init.sh && . /Users/hikalium/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
