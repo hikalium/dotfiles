@@ -211,6 +211,7 @@ endfor
 cnoreabbrev tn tabnew
 cnoreabbrev vs vsplit
 
+set encoding=utf-8
 
 au BufNewFile,BufRead *.c set filetype=c
 au BufNewFile,BufRead *.cpp set filetype=cpp
