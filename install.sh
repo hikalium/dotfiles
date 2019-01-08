@@ -56,4 +56,7 @@ if [ ! -f ~/.vim/autoload/plug.vim ]; then
     	https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
+ln -snf $pwd/alacritty.yml ~/.alacritty.yml
+ls -la ~/.alacritty.yml
+
 echo "done."
