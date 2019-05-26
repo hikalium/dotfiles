@@ -9,6 +9,8 @@ if [ ! -d tmp ]; then
 	mkdir tmp
 fi
 
+ln -snf $pwd ~/.dotfiles
+
 
 if [ ! -f ~/.git-completion.bash ]; then
 	wget -N $GITCOMPLURL/git-prompt.sh -P tmp/
@@ -17,7 +19,7 @@ if [ ! -f ~/.git-completion.bash ]; then
 	ln -snf $pwd/tmp/git-completion.bash ~/.git-completion.bash
 fi
 
-ln -snf $pwd/.vimrc ../.vimrc
+ln -snf $pwd/.vimrc ~/.vimrc
 
 # .bash_profile
 PATH_REAL_LOCAL_BASH_PROFILE=$pwd/hosts/bash_profile.`hostname`
@@ -45,11 +47,12 @@ ls -la ~/.bashrc.common
 ln -snf $PATH_REAL_LOCAL_BASH_RC ~/.bashrc
 ls -la ~/.bashrc
 
-ln -snf $pwd/.tmux.conf ../.tmux.conf
-ln -snf $pwd/.tmux.osx.conf ../.tmux.osx.conf
+ln -snf $pwd/.tmux.conf ~/.tmux.conf
+ln -snf $pwd/.tmux.osx.conf ~/.tmux.osx.conf
+ln -snf $pwd/.tmux.linux.conf ~/.tmux.linux.conf
 
-mkdir -p ../.vim/ftdetect
-ln -snf $pwd/.vim/ftdetect/binary.vim ../.vim/ftdetect/binary.vim
+mkdir -p ~/.vim/ftdetect
+ln -snf $pwd/.vim/ftdetect/binary.vim ~/.vim/ftdetect/binary.vim
 
 if [ ! -f ~/.vim/autoload/plug.vim ]; then
 	curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
