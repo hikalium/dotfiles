@@ -1,0 +1,3 @@
+hardstatus alwayslastline
+hardstatus string 'Ctrl-A k to exit, Ctrl-A [ to copy mode (Space then Enter, then :writebuf)'
+bufferfile screen_out.txt

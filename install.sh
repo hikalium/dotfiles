@@ -50,6 +50,7 @@ ls -la ~/.bashrc
 ln -snf $pwd/.tmux.conf ~/.tmux.conf
 ln -snf $pwd/.tmux.osx.conf ~/.tmux.osx.conf
 ln -snf $pwd/.tmux.linux.conf ~/.tmux.linux.conf
+ln -snf $pwd/screenrc ~/.screenrc
 
 mkdir -p ~/.vim/ftdetect
 ln -snf $pwd/.vim/ftdetect/binary.vim ~/.vim/ftdetect/binary.vim

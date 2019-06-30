@@ -4,6 +4,7 @@ source ~/.bashrc.common
 export PATH="$PATH:/Users/hikalium/t03/repos/depot_tools"
 export PATH="$PATH:/Users/hikalium/t03/carch/bin"
 export PATH="$PATH:/Users/hikalium/t03/sqlite-tools-osx-x86-3210000"
+export PATH="$PATH:/usr/local/opt/binutils/bin"
 alias vghalt="vagrant halt"
 alias vgup="vagrant up"
 alias vg="vagrant"
@@ -18,3 +19,4 @@ if [ $( ps -ef | grep ssh-agent | grep -v grep | wc -l ) -eq 0 ]; then
     ssh-agent -t $SSH_KEY_LIFE_TIME_SEC > $SSH_AGENT_FILE
     source $SSH_AGENT_FILE > /dev/null 2>&1
 fi
+export LESSCHARSET=UTF-8 
