@@ -1,4 +1,5 @@
 syntax on
+language en_US
 
 call plug#begin()
 	Plug 'leafgarland/typescript-vim'
@@ -6,7 +7,6 @@ call plug#begin()
 	Plug '2072/PHP-Indenting-for-VIm'
 	Plug 'groenewege/vim-less'
 	Plug 'Shougo/vinarise'
-	"Plug 'fatih/vim-go'
 	Plug 'google/vim-maktaba'
 	Plug 'google/vim-codefmt'
 	Plug 'vim-syntastic/syntastic'
@@ -57,30 +57,37 @@ set statusline+=%{coc#status()}
 set laststatus=2 " Show status line (0:never, 1:two or more windows, 2:always)
 
 " Colors
-hi Search cterm=NONE ctermfg=black ctermbg=191
-hi Visual cterm=NONE ctermfg=black ctermbg=191
-hi StatusLine term=NONE cterm=NONE ctermfg=230 ctermbg=22
-hi VertSplit term=NONE cterm=NONE ctermfg=22 ctermbg=NONE
-hi NonText term=NONE cterm=NONE ctermfg=22 ctermbg=NONE
-hi SpecialKey term=NONE cterm=NONE ctermfg=23 ctermbg=NONE
-hi MatchParen ctermbg=4
-
-hi CocInfoSign ctermfg=191 ctermbg=black
-hi CocWarningSign ctermfg=191 ctermbg=black
-hi CocErrorSign ctermfg=191 ctermbg=black
-
-hi Pmenu ctermbg=131
-hi PmenuSel ctermbg=124
-
-hi TabLineFill ctermfg=22 ctermbg=22
+" 22: dark green
+" 191: yellow
+" StatusLine: bottom line
 hi clear TabLine
+
+hi CocErrorSign ctermfg=191 ctermbg=NONE
+hi CocInfoSign ctermfg=191 ctermbg=NONE
+hi CocWarningSign ctermfg=191 ctermbg=black
+
+hi FgCocErrorFloatBgCocFloating ctermfg=9
+hi FgCocHintFloatBgCocFloating ctermfg=4
+
+hi MatchParen ctermbg=4
+hi NonText term=NONE cterm=NONE ctermfg=22 ctermbg=NONE
+hi Pmenu ctermbg=191
+hi PmenuSel ctermbg=124
+hi Comment ctermfg=191
+hi Search cterm=NONE ctermfg=black ctermbg=191
+hi SpecialKey ctermfg=23 ctermbg=NONE
+hi StatusLine cterm=NONE gui=NONE ctermfg=white ctermbg=22
 hi TabLine ctermfg=230 ctermbg=22
+hi TabLineFill ctermfg=22 ctermbg=22
 hi TabLineSel ctermfg=230 ctermbg=166
+hi VertSplit term=NONE cterm=NONE ctermfg=22 ctermbg=NONE
+hi Visual cterm=NONE ctermfg=black ctermbg=191
+hi SpecialKey ctermfg=23
+hi SignColumn ctermbg=NONE
 
 " Hightlight tab chars
 set list
 set listchars=tab:>_
-hi SpecialKey ctermfg=237
 
 augroup HighlightTrailingSpaces
 	autocmd!
@@ -219,7 +226,12 @@ endif
 
 set wildmode=list:longest
 
+" Move between windows
 nnoremap <Return><Return> <c-w><c-w>
+" Edit vimr configuration file
+nnoremap confe :e $MYVIMRC<CR>
+" Reload vims configuration file
+nnoremap confr :source $MYVIMRC<CR>
 
 " Disable Ex mode
 map Q <Nop>
