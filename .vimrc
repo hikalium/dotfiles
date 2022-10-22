@@ -323,11 +323,11 @@ command! TurnOffLight
 \ execute ':silent !' . s:send_sh_path . ' ' . s:off_json_path | 
 \ execute ':redraw!'
 
-try
+"try
 " hit [c in normal mode to jump to next error
-    nmap <silent> [c :call CocAction('diagnosticNext')<cr>
-    nmap <silent> ]c :call CocAction('diagnosticPrevious')<cr>
-endtry
+"    nmap <silent> [c :call CocAction('diagnosticNext')<cr>
+"    nmap <silent> ]c :call CocAction('diagnosticPrevious')<cr>
+"endtry
 
 set guicursor=i:block
 set noshowcmd

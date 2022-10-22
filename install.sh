@@ -19,8 +19,6 @@ if [ ! -f ~/.git-completion.bash ]; then
 	ln -snf $pwd/tmp/git-completion.bash ~/.git-completion.bash
 fi
 
-ln -snf $pwd/.vimrc ~/.vimrc
-
 # .bash_profile
 PATH_REAL_LOCAL_BASH_PROFILE=$pwd/hosts/bash_profile.`hostname`
 if [ ! -f $PATH_REAL_LOCAL_BASH_PROFILE ]; then
@@ -52,9 +50,11 @@ ln -snf $pwd/.tmux.osx.conf ~/.tmux.osx.conf
 ln -snf $pwd/.tmux.linux.conf ~/.tmux.linux.conf
 ln -snf $pwd/screenrc ~/.screenrc
 
+# vim / nvim
+ln -snf $pwd/.vimrc ~/.config/nvim/init.vim
+ln -snf $pwd/.vimrc ~/.vimrc
 mkdir -p ~/.vim/ftdetect
 ln -snf $pwd/.vim/ftdetect/binary.vim ~/.vim/ftdetect/binary.vim
-
 if [ ! -f ~/.vim/autoload/plug.vim ]; then
 	curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     	https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
