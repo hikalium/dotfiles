@@ -6,7 +6,9 @@ call plug#begin()
 	Plug '2072/PHP-Indenting-for-VIm'
 	Plug 'groenewege/vim-less'
 	Plug 'Shougo/vinarise'
-	Plug 'fatih/vim-go'
+	"Plug 'fatih/vim-go'
+	Plug 'google/vim-maktaba'
+	Plug 'google/vim-codefmt'
 	Plug 'vim-syntastic/syntastic'
 	Plug 'Lokaltog/powerline'
 	Plug 'rhysd/vim-clang-format'
@@ -16,6 +18,7 @@ call plug#begin()
 	Plug 'luochen1990/rainbow'
 	Plug 'guns/xterm-color-table.vim' " :XtermColorTable to show color tables
 	Plug 'maksimr/vim-jsbeautify'
+	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 set nocompatible
@@ -36,6 +39,11 @@ if has("autocmd")
   augroup END
 endif
 
+" Coc.nvim
+" https://github.com/neoclide/coc.nvim
+set cmdheight=2
+set updatetime=300
+
 " Status Line Settings
 set statusline=%F " Show file name
 set statusline+=%m " Show modification
@@ -45,6 +53,7 @@ set statusline+=%w " Show if preview
 set statusline+=:%l " Show line number
 set statusline+=%= " align right after this
 set statusline+=\ %Y[%{&fileencoding}] " file encoding
+set statusline+=%{coc#status()}
 set laststatus=2 " Show status line (0:never, 1:two or more windows, 2:always)
 
 " Colors
@@ -56,6 +65,10 @@ hi NonText term=NONE cterm=NONE ctermfg=22 ctermbg=NONE
 hi SpecialKey term=NONE cterm=NONE ctermfg=23 ctermbg=NONE
 hi MatchParen ctermbg=4
 
+hi CocInfoSign ctermfg=191 ctermbg=black
+hi CocWarningSign ctermfg=191 ctermbg=black
+hi CocErrorSign ctermfg=191 ctermbg=black
+
 hi Pmenu ctermbg=131
 hi PmenuSel ctermbg=124
 
@@ -63,6 +76,17 @@ hi TabLineFill ctermfg=22 ctermbg=22
 hi clear TabLine
 hi TabLine ctermfg=230 ctermbg=22
 hi TabLineSel ctermfg=230 ctermbg=166
+
+" Hightlight tab chars
+set list
+set listchars=tab:>_
+hi SpecialKey ctermfg=237
+
+augroup HighlightTrailingSpaces
+	autocmd!
+	autocmd VimEnter,WinEnter,ColorScheme * highlight TrailingSpaces term=underline guibg=red ctermbg=197
+	autocmd VimEnter,WinEnter * match TrailingSpaces /\s\+$/
+augroup END
 
 " luochen1990/rainbow
 let g:rainbow_active = 1
@@ -218,10 +242,23 @@ au BufNewFile,BufRead *.cpp set filetype=cpp
 au BufNewFile,BufRead *.cc set filetype=cpp
 au BufNewFile,BufRead *.h set filetype=cpp
 au BufNewFile,BufRead *.ejs set filetype=html
+au BufNewFile,BufRead *.satyh set filetype=satysfi
+au BufNewFile,BufRead *.pl set filetype=
+
+autocmd FileType go AutoFormatBuffer gofmt
+
+au FileType asm set tabstop=2
+au FileType asm set shiftwidth=2
+au FileType asm set expandtab
+au FileType asm au BufWritePre <buffer> %s/\s\+$//e
 
 au FileType cpp set tabstop=2
 au FileType cpp set shiftwidth=2
 au FileType cpp set expandtab
+
+au FileType satysfi set tabstop=2
+au FileType satysfi set shiftwidth=2
+au FileType satysfi set expandtab
 
 au FileType c set tabstop=2
 au FileType c set shiftwidth=2
@@ -262,3 +299,25 @@ au FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
 au FileType fortran set noexpandtab
 
 au FileType yaml setlocal ts=4 sts=4 sw=4 expandtab
+
+let s:ir_signals_path = '/Users/hikalium/repo/remo-ir-signals/'
+let s:send_sh_path = s:ir_signals_path . '/send.sh'
+let s:on_json_path = s:ir_signals_path . 'on.json'
+let s:off_json_path = s:ir_signals_path . 'off.json'
+command! TurnOnLight
+\ execute ':silent !' . s:send_sh_path . ' ' . s:on_json_path | 
+\ execute ':redraw!'
+command! TurnOffLight
+\ execute ':silent !' . s:send_sh_path . ' ' . s:off_json_path | 
+\ execute ':redraw!'
+
+try
+" hit [c in normal mode to jump to next error
+    nmap <silent> [c :call CocAction('diagnosticNext')<cr>
+    nmap <silent> ]c :call CocAction('diagnosticPrevious')<cr>
+endtry
+
+set guicursor=i:block
+set noshowcmd
+set langmenu=none
+language en_US
