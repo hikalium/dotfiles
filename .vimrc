@@ -1,24 +1,24 @@
 syntax on
-language en_US
+" language en_US
 
 call plug#begin()
-	Plug 'leafgarland/typescript-vim'
-	Plug 'jason0x43/vim-js-indent'
-	Plug '2072/PHP-Indenting-for-VIm'
-	Plug 'groenewege/vim-less'
-	Plug 'Shougo/vinarise'
-	Plug 'google/vim-maktaba'
-	Plug 'google/vim-codefmt'
-	Plug 'vim-syntastic/syntastic'
-	Plug 'Lokaltog/powerline'
-	Plug 'rhysd/vim-clang-format'
-	Plug 'guns/xterm-color-table.vim'
-	Plug 'rust-lang/rust.vim'
-	Plug 'Vimjas/vim-python-pep8-indent'
-	Plug 'luochen1990/rainbow'
-	Plug 'guns/xterm-color-table.vim' " :XtermColorTable to show color tables
-	Plug 'maksimr/vim-jsbeautify'
-	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+	" Plug 'leafgarland/typescript-vim'
+	" Plug 'jason0x43/vim-js-indent'
+	" Plug '2072/PHP-Indenting-for-VIm'
+	" Plug 'groenewege/vim-less'
+	" Plug 'Shougo/vinarise'
+	" Plug 'google/vim-maktaba'
+	" Plug 'google/vim-codefmt'
+	" Plug 'vim-syntastic/syntastic'
+	" Plug 'Lokaltog/powerline'
+	" Plug 'rhysd/vim-clang-format'
+	" Plug 'guns/xterm-color-table.vim'
+	" Plug 'rust-lang/rust.vim'
+	" Plug 'Vimjas/vim-python-pep8-indent'
+	" Plug 'luochen1990/rainbow'
+	" Plug 'guns/xterm-color-table.vim' " :XtermColorTable to show color tables
+	" Plug 'maksimr/vim-jsbeautify'
+	" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 set nocompatible
@@ -53,7 +53,7 @@ set statusline+=%w " Show if preview
 set statusline+=:%l " Show line number
 set statusline+=%= " align right after this
 set statusline+=\ %Y[%{&fileencoding}] " file encoding
-set statusline+=%{coc#status()}
+"set statusline+=%{coc#status()}
 set laststatus=2 " Show status line (0:never, 1:two or more windows, 2:always)
 
 " Colors
@@ -332,4 +332,4 @@ command! TurnOffLight
 set guicursor=i:block
 set noshowcmd
 set langmenu=none
-language en_US
+" language en_US
