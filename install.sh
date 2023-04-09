@@ -1,6 +1,4 @@
 #!/bin/bash -eu
-echo "pwd: `dirname $0`"
-
 pwd=`pwd`
 
 GITCOMPLURL=https://raw.githubusercontent.com/git/git/master/contrib/completion
@@ -50,9 +48,26 @@ ln -snf $pwd/.tmux.osx.conf ~/.tmux.osx.conf
 ln -snf $pwd/.tmux.linux.conf ~/.tmux.linux.conf
 ln -snf $pwd/screenrc ~/.screenrc
 
-# vim / nvim
-ln -snf $pwd/.vimrc ~/.config/nvim/init.vim
+# nvim
+PATH_REAL_LOCAL_NVIM_INIT=$pwd/hosts/init.vim.`hostname`
+if [ ! -f $PATH_REAL_LOCAL_NVIM_INIT ]; then
+	if [ -f ~/.config/nvim/init.vim ]; then
+		cp ~/.config/nvim/init.vim $PATH_REAL_LOCAL_NVIM_INIT
+	elif [ -f ~/.vimrc ]; then
+		cp ~/.vimrc $PATH_REAL_LOCAL_NVIM_INIT
+	else
+		touch $PATH_REAL_LOCAL_NVIM_INIT
+	fi
+fi
+mkdir -p ~/.config/nvim/
+ln -snf $PATH_REAL_LOCAL_NVIM_INIT ~/.config/nvim/init.vim
+ls -la ~/.config/nvim/init.vim
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+# vim
 ln -snf $pwd/.vimrc ~/.vimrc
+ls -la ~/.vimrc
 mkdir -p ~/.vim/ftdetect
 ln -snf $pwd/.vim/ftdetect/binary.vim ~/.vim/ftdetect/binary.vim
 if [ ! -f ~/.vim/autoload/plug.vim ]; then
@@ -62,5 +77,3 @@ fi
 
 ln -snf $pwd/alacritty.yml ~/.alacritty.yml
 ls -la ~/.alacritty.yml
-
-echo "done."
