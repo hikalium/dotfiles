@@ -1,5 +1,6 @@
 #!/bin/bash -eu
 cd "$(dirname ${BASH_SOURCE[0]})"
+DOTFILES_DIR=$(readlink -f .)
 COMMON_DIR=$(readlink -f ./common)
 HOST_DIR=$(readlink -f ./hosts/$(hostname))
 echo ${HOST_DIR}
@@ -26,6 +27,8 @@ ln -snf ${COMMON_DIR}/tmux.conf ~/.tmux.conf
 ln -snf ${COMMON_DIR}/tmux.osx.conf ~/.tmux.osx.conf
 ln -snf ${COMMON_DIR}/tmux.linux.conf ~/.tmux.linux.conf
 ln -snf ${COMMON_DIR}/screenrc ~/.screenrc
+
+ls --color=always -lah ${HOME} | grep ${DOTFILES_DIR}
 exit
 
 # nvim
