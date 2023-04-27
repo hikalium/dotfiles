@@ -1,47 +1,28 @@
 #!/bin/bash -eu
-pwd=`pwd`
+cd "$(dirname ${BASH_SOURCE[0]})"
+COMMON_DIR=$(readlink -f ./common)
+HOST_DIR=$(readlink -f ./hosts/$(hostname))
+echo ${HOST_DIR}
+mkdir -p ${HOST_DIR}
 
-GITCOMPLURL=https://raw.githubusercontent.com/git/git/master/contrib/completion
-
-if [ ! -d tmp ]; then
-	mkdir tmp
+# ~/.bash_profile
+COMMON_BASH_PROFILE=${COMMON_DIR}/bash_profile
+HOST_BASH_PROFILE=${HOST_DIR}/bash_profile
+if [ ! -f ${HOST_BASH_PROFILE} ]; then
+	cp ${HOME}/.bash_profile ${HOST_BASH_PROFILE} || echo "source ${COMMON_BASH_PROFILE}" > ${HOST_BASH_PROFILE}
 fi
+ln -snf ${HOST_BASH_PROFILE} ${HOME}/.bash_profile
+ls -la ${HOME}/.bash_profile
 
-ln -snf $pwd ~/.dotfiles
-
-
-if [ ! -f ~/.git-completion.bash ]; then
-	wget -N $GITCOMPLURL/git-prompt.sh -P tmp/
-	wget -N $GITCOMPLURL/git-completion.bash -P tmp/
-	ln -snf $pwd/tmp/git-prompt.sh ~/.git-prompt.sh
-	ln -snf $pwd/tmp/git-completion.bash ~/.git-completion.bash
+# ~/.bashrc
+COMMON_BASHRC=${COMMON_DIR}/bashrc
+HOST_BASHRC=${HOST_DIR}/bashrc
+if [ ! -f ${HOST_BASHRC} ]; then
+	cp ${HOME}/.bashrc ${HOST_BASHRC} || echo "source ${COMMON_BASHRC}" > ${HOST_BASHRC}
 fi
-
-# .bash_profile
-PATH_REAL_LOCAL_BASH_PROFILE=$pwd/hosts/bash_profile.`hostname`
-if [ ! -f $PATH_REAL_LOCAL_BASH_PROFILE ]; then
-	if [ ! -L ~/.bash_profile ] && [ -f ~/.bash_profile ]; then
-		cp ~/.bash_profile $PATH_REAL_LOCAL_BASH_PROFILE
-	else
-		echo "source ~/.bashrc" > $PATH_REAL_LOCAL_BASH_PROFILE
-	fi
-fi
-ln -snf $PATH_REAL_LOCAL_BASH_PROFILE ~/.bash_profile
-ls -la ~/.bash_profile
-
-# .bashrc and .bashrc.hostname
-PATH_REAL_LOCAL_BASH_RC=$pwd/hosts/bashrc.`hostname`
-if [ ! -f $PATH_REAL_LOCAL_BASH_RC ]; then
-	if [ ! -L ~/.bashrc ] && [ -f ~/.bashrc ]; then
-		cp ~/.bashrc $PATH_REAL_LOCAL_BASH_RC
-	else
-		echo 'source ~/.bashrc.common' > $PATH_REAL_LOCAL_BASH_RC
-	fi
-fi
-ln -snf $pwd/bashrc ~/.bashrc.common
-ls -la ~/.bashrc.common
-ln -snf $PATH_REAL_LOCAL_BASH_RC ~/.bashrc
+ln -snf ${HOST_BASHRC} ${HOME}/.bashrc
 ls -la ~/.bashrc
+exit
 
 ln -snf $pwd/.tmux.conf ~/.tmux.conf
 ln -snf $pwd/.tmux.osx.conf ~/.tmux.osx.conf
