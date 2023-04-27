@@ -1,5 +1,4 @@
-"バイナリ編集(xxd)モード（vim -b での起動、もしくは *.bin
-"ファイルを開くと発動します）
+" Usage: vim -b <some_binary_file> or vim -b <some>.bin
 
 function! s:convToBinaryPre(bin)
 	if &binary
