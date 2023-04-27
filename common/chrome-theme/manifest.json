@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "version": "2.6",
+  "name": "hikalium",
+  "theme": {
+    "images" : {
+    },
+    "colors" : {
+      "button_background" : [255, 255, 255],
+      "frame" : [71, 105, 91],
+      "ntp_background" : [255, 255, 255],
+      "ntp_header" : [255, 255, 255],
+      "ntp_link" : [36, 70, 0],
+      "ntp_text" : [20, 40, 0],
+      "omnibox_background": [255, 255, 255],
+      "omnibox_text: ": [127, 127, 127],
+      "toolbar" : [207, 221, 192],
+      "toolbar_button_icon" : [25, 25, 25],
+      "toolbar_text" : [25, 25, 25]
+    },
+    "tints" : {
+      "buttons" : [0.8, 0.8, 0.8]
+    },
+    "properties" : {
+      "ntp_background_alignment" : "bottom"
+    }
+  }
+}
