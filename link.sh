@@ -12,7 +12,6 @@ if [ ! -f ${HOST_BASH_PROFILE} ]; then
 	cp ${HOME}/.bash_profile ${HOST_BASH_PROFILE} || echo "source ${COMMON_BASH_PROFILE}" > ${HOST_BASH_PROFILE}
 fi
 ln -snf ${HOST_BASH_PROFILE} ${HOME}/.bash_profile
-ls -la ${HOME}/.bash_profile
 
 # ~/.bashrc
 COMMON_BASHRC=${COMMON_DIR}/bashrc
@@ -21,13 +20,13 @@ if [ ! -f ${HOST_BASHRC} ]; then
 	cp ${HOME}/.bashrc ${HOST_BASHRC} || echo "source ${COMMON_BASHRC}" > ${HOST_BASHRC}
 fi
 ln -snf ${HOST_BASHRC} ${HOME}/.bashrc
-ls -la ~/.bashrc
-exit
 
-ln -snf $pwd/.tmux.conf ~/.tmux.conf
-ln -snf $pwd/.tmux.osx.conf ~/.tmux.osx.conf
-ln -snf $pwd/.tmux.linux.conf ~/.tmux.linux.conf
-ln -snf $pwd/screenrc ~/.screenrc
+ln -snf ${COMMON_DIR}/vimrc ~/.vimrc
+ln -snf ${COMMON_DIR}/tmux.conf ~/.tmux.conf
+ln -snf ${COMMON_DIR}/tmux.osx.conf ~/.tmux.osx.conf
+ln -snf ${COMMON_DIR}/tmux.linux.conf ~/.tmux.linux.conf
+ln -snf ${COMMON_DIR}/screenrc ~/.screenrc
+exit
 
 # nvim
 PATH_REAL_LOCAL_NVIM_INIT=$pwd/hosts/init.vim.`hostname`
