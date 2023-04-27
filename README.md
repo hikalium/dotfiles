@@ -1,6 +1,10 @@
 # dotfiles
 dotfiles for hikalium
 
+```
+./link.sh
+```
+
 ## macOS
 ```
 mkdir -p ~/Desktop/SS && defaults write com.apple.screencapture location ~/Desktop/SS
