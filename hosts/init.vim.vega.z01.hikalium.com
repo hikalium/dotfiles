@@ -331,3 +331,4 @@ set langmenu=none
 " Hit enter to select suggestion
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
 
+set mouse=
