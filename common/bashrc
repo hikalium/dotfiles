@@ -28,7 +28,7 @@ if [ -n "$SSH_CLIENT" ]; then
 else
 	isssh="${GREEN}[local]${RESET}"
 fi
-export PS1="${CYAN}[\t]${RESET}\n${isssh} \u@\H: ${CYAN}\w${RESET} ${gitstatus} \n\$ "
+export PS1="${CYAN}[\t]${RESET}\n${isssh} \u@\H: ${CYAN}\w${RESET} \n\$ "
 
 # ls color
 case "${OSTYPE}" in
@@ -53,9 +53,5 @@ fi
 
 # rust
 export PATH=$PATH:$HOME/.cargo/bin
-
-# git completion
-source ~/.git-completion.bash
-
 # alias
 alias vi=vim

@@ -1,6 +1,15 @@
 # dotfiles
 dotfiles for hikalium
 
+```
+./link.sh
+```
+
+## Ubuntu / Debian
+```
+sudo apt install tmux
+```
+
 ## macOS
 ```
 mkdir -p ~/Desktop/SS && defaults write com.apple.screencapture location ~/Desktop/SS

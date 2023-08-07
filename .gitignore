@@ -1,3 +1,4 @@
 git-prompt.sh
 .DS_Store
 tmp/
+*.swp

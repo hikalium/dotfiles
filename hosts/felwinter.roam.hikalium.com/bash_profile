@@ -1,0 +1,2 @@
+source /home/hikalium/dotfiles/common/bash_profile
+. "$HOME/.cargo/env"
