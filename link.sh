@@ -29,10 +29,9 @@ ln -snf ${COMMON_DIR}/tmux.linux.conf ~/.tmux.linux.conf
 ln -snf ${COMMON_DIR}/screenrc ~/.screenrc
 
 ls --color=always -lah ${HOME} | grep ${DOTFILES_DIR}
-exit
 
 # nvim
-PATH_REAL_LOCAL_NVIM_INIT=$pwd/hosts/init.vim.`hostname`
+PATH_REAL_LOCAL_NVIM_INIT=${HOST_DIR}/init.vim
 if [ ! -f $PATH_REAL_LOCAL_NVIM_INIT ]; then
 	if [ -f ~/.config/nvim/init.vim ]; then
 		cp ~/.config/nvim/init.vim $PATH_REAL_LOCAL_NVIM_INIT
@@ -47,6 +46,7 @@ ln -snf $PATH_REAL_LOCAL_NVIM_INIT ~/.config/nvim/init.vim
 ls -la ~/.config/nvim/init.vim
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+exit
 
 # vim
 ln -snf $pwd/.vimrc ~/.vimrc
