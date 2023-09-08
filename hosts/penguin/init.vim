@@ -191,7 +191,7 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 let g:rustfmt_autosave = 1
-let g:rustfmt_command = 'rustup run nightly rustfmt'
+" let g:rustfmt_command = 'rustup run nightly rustfmt'
 
 let g:syntastic_mode_map = {
     \ "mode": "passive",
