@@ -1,13 +1,10 @@
 # dotfiles
 dotfiles for hikalium
 
-```
-./link.sh
-```
+## Crostini
 
-## Ubuntu / Debian
 ```
-sudo apt install tmux
+curl https://raw.githubusercontent.com/hikalium/dotfiles/master/setup_crostini.sh | bash -xe
 ```
 
 ## macOS
@@ -21,6 +18,6 @@ sudo scutil --set HostName ${HOST}
 sudo scutil --set LocalHostName `echo $HOST | sed -E 's/\..*$//'`
 ```
 
-## fonts
+## Fonts
 - https://github.com/adobe-fonts/source-code-pro/releases/tag/2.030R-ro%2F1.050R-it
   - Install OTF fonts
