@@ -16,3 +16,8 @@ source ~/.bashrc
 ./scripts/setup_nvim_linux_postinstall.sh
 ./scripts/install_github_cli.sh
 gh auth status || { gh auth login && gh auth status ; }
+git -C ~/dotfiles remote -v | grep https \
+	&& git -C ~/dotfiles remote set-url origin git@github.com:hikalium/dotfiles.git \
+	|| echo "dotfiles remote url is already using ssh"
+
+echo "Done!"
