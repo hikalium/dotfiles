@@ -15,3 +15,4 @@ source ~/.bashrc
 ./link.sh
 ./scripts/setup_nvim_linux_postinstall.sh
 ./scripts/install_github_cli.sh
+gh auth status || { gh auth login && gh auth status ; }
