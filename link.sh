@@ -44,8 +44,9 @@ fi
 mkdir -p ~/.config/nvim/
 ln -snf $PATH_REAL_LOCAL_NVIM_INIT ~/.config/nvim/init.vim
 ls -la ~/.config/nvim/init.vim
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+NVIM_PLUG_PATH="${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/autoload/plug.vim"
+sh -c "curl -fLo '${NVIM_PLUG_PATH}' --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 exit
 
 # vim
