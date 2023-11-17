@@ -14,4 +14,4 @@ sudo apt install -y fuse wget build-essential tmux minicom
 source ~/.bashrc
 ./link.sh
 ./scripts/setup_nvim_linux_postinstall.sh
-
+./scripts/install_github_cli.sh
