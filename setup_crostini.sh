@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -ex
 cd ~
 echo "HOME dir: ${HOME}"
 if [ -d dotfiles ] ; then
@@ -11,7 +11,7 @@ git pull --no-rebase
 sudo apt install -y fuse wget build-essential tmux minicom
 ./scripts/setup_git.sh
 ./scripts/setup_nvim_linux.sh
-source ~/.bashrc
+source ~/.bashrc || true
 ./link.sh
 ./scripts/setup_nvim_linux_postinstall.sh
 ./scripts/install_github_cli.sh
