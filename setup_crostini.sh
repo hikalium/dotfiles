@@ -4,10 +4,11 @@ echo "HOME dir: ${HOME}"
 if [ -d dotfiles ] ; then
 	echo "dotfiles is checked out already."
 else
-	echo "b"
+	git clone https://github.com/hikalium/dotfiles.git
 fi
 cd dotfiles
 git pull --no-rebase
+sudo apt update
 sudo apt install -y fuse wget build-essential tmux minicom
 ./scripts/setup_git.sh
 ./scripts/setup_nvim_linux.sh
