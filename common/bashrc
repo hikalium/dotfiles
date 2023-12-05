@@ -52,6 +52,6 @@ if [ -x "`which go 2>&1`" ]; then
 fi
 
 # rust
-export PATH=$PATH:$HOME/.cargo/bin
+export PATH=$HOME/.local/bin:$HOME/.cargo/bin:$PATH
 # alias
 alias vi=vim
