@@ -1,9 +1,10 @@
 #!/bin/bash -e
-if ! ~/bin/nvim.appimage --version ; then
+NVIM_VERSION=v0.9.5
+if ! ~/bin/nvim.appimage --version | grep "NVIM ${NVIM_VERSION}" ; then
 	cd ~
 	mkdir -p bin
 	cd bin
-	wget -N https://github.com/neovim/neovim/releases/download/v0.9.0/nvim.appimage
+	wget -N https://github.com/neovim/neovim/releases/download/${NVIM_VERSION}/nvim.appimage
 	export NVIM=`readlink -f ./nvim.appimage`
 	chmod u+x ${NVIM}
 	${NVIM} --version
