@@ -22,4 +22,10 @@ git -C ~/dotfiles remote -v | grep https \
 	&& git -C ~/dotfiles remote set-url origin git@github.com:hikalium/dotfiles.git \
 	|| echo "dotfiles remote url is already using ssh"
 
+if [ -d ~/.ssh ] && [ -f ~/.ssh/id_ed25519.pub ] ; then
+	echo "id_ed25519.pub already exists"
+else
+	ssh-keygen -t ed25519
+fi
+
 echo "Done!"
