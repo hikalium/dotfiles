@@ -25,7 +25,9 @@ git -C ~/dotfiles remote -v | grep https \
 if [ -d ~/.ssh ] && [ -f ~/.ssh/id_ed25519.pub ] ; then
 	echo "id_ed25519.pub already exists"
 else
-	ssh-keygen -t ed25519
+	ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519
+	cat ~/.ssh/id_ed25519.pub
+	echo "https://github.com/settings/ssh/new"
 fi
 
 echo "Done!"
