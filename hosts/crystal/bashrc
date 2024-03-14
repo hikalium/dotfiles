@@ -1,0 +1,8 @@
+source ~/dotfiles/common/bashrc
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+alias vi=/home/hikalium/dotfiles/nvim.appimage
+alias vim=/home/hikalium/dotfiles/nvim.appimage
+alias nvim=/home/hikalium/dotfiles/nvim.appimage

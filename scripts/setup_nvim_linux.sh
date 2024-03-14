@@ -5,10 +5,10 @@ if ! ~/bin/nvim.appimage --version | grep "NVIM ${NVIM_VERSION}" ; then
 	mkdir -p bin
 	cd bin
 	wget -N https://github.com/neovim/neovim/releases/download/${NVIM_VERSION}/nvim.appimage
-	export NVIM=`readlink -f ./nvim.appimage`
 	chmod u+x ${NVIM}
 	${NVIM} --version
 fi
+export NVIM=`readlink -f ./nvim.appimage`
 cat ~/.bashrc | grep -E '^alias vi=' || echo "alias vi=${NVIM}" >> ~/.bashrc
 cat ~/.bashrc | grep -E '^alias vim=' || echo "alias vim=${NVIM}" >> ~/.bashrc
 cat ~/.bashrc | grep -E '^alias nvim=' || echo "alias nvim=${NVIM}" >> ~/.bashrc
