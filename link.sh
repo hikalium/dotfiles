@@ -47,17 +47,18 @@ ls -la ~/.config/nvim/init.vim
 NVIM_PLUG_PATH="${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/autoload/plug.vim"
 sh -c "curl -fLo '${NVIM_PLUG_PATH}' --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-exit
 
-# vim
-ln -snf $pwd/.vimrc ~/.vimrc
-ls -la ~/.vimrc
-mkdir -p ~/.vim/ftdetect
-ln -snf $pwd/.vim/ftdetect/binary.vim ~/.vim/ftdetect/binary.vim
-if [ ! -f ~/.vim/autoload/plug.vim ]; then
-	curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    	https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-fi
+# # vim
+# ln -snf $pwd/.vimrc ~/.vimrc
+# ls -la ~/.vimrc
+# mkdir -p ~/.vim/ftdetect
+# ln -snf $pwd/.vim/ftdetect/binary.vim ~/.vim/ftdetect/binary.vim
+# if [ ! -f ~/.vim/autoload/plug.vim ]; then
+# 	curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+#     	https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+# fi
+#
+# ln -snf $pwd/alacritty.yml ~/.alacritty.yml
+# ls -la ~/.alacritty.yml
 
-ln -snf $pwd/alacritty.yml ~/.alacritty.yml
-ls -la ~/.alacritty.yml
+echo "Done!"
