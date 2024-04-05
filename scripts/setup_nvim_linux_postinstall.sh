@@ -13,9 +13,13 @@ if ! nvm version node ; then
 	nvm install node
 fi
 
-nvim --headless +PlugInstall +qall
-nvim --headless '+CocInstall coc-rust-analyzer' +qall
+export NVIM=`readlink -f ~/bin/nvim.appimage`
+[ -f ${NVIM} ] || { echo "FAIL: nvim not found" ; exit 1 ; }
+echo "NVIM is at: ${NVIM}"
+
+${NVIM} --headless +PlugInstall +qall
+${NVIM} --headless '+CocInstall coc-rust-analyzer' +qall
 mkdir -p ~/dotfiles/log/
 test -f ~/dotfiles/log/nvim_plug_status.txt && rm ~/dotfiles/log/nvim_plug_status.txt
-nvim --headless +PlugStatus '+w ~/dotfiles/log/nvim_plug_status.txt' +qa
+${NVIM} --headless +PlugStatus '+w ~/dotfiles/log/nvim_plug_status.txt' +qa
 cat ~/dotfiles/log/nvim_plug_status.txt
