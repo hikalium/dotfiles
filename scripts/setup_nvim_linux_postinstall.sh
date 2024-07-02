@@ -13,7 +13,7 @@ if ! nvm version node ; then
 	nvm install node
 fi
 
-export NVIM=`readlink -f ~/bin/nvim.appimage`
+export NVIM=`which nvim`
 [ -f ${NVIM} ] || { echo "FAIL: nvim not found" ; exit 1 ; }
 echo "NVIM is at: ${NVIM}"
 
