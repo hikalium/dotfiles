@@ -10,6 +10,7 @@ export RA_LOG_STDERR=/tmp/ra.log
 eval `ssh-agent`
 [ -f $HOME/.cargo/env ] && . "$HOME/.cargo/env"
 
+PATH="/home/hikalium/.platformio/penv/bin${PATH:+:${PATH}}"; export PATH;
 PATH="/home/hikalium/perl5/bin${PATH:+:${PATH}}"; export PATH;
 PERL5LIB="/home/hikalium/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
 PERL_LOCAL_LIB_ROOT="/home/hikalium/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;

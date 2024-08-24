@@ -13,7 +13,8 @@ if ! nvm version node ; then
 	nvm install node
 fi
 
-export NVIM=`which nvim`
+export NVIM=`alias nvim | cut -d '=' -f 2 | sed -e "s/^'//" -e "s/'$//" || which nvim`
+[ "${NVIM}" != "" ] || { echo "FAIL: nvim not found" ; exit 1 ; }
 [ -f ${NVIM} ] || { echo "FAIL: nvim not found" ; exit 1 ; }
 echo "NVIM is at: ${NVIM}"
 
