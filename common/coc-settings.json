@@ -1,0 +1,9 @@
+{
+  "diagnostic.floatConfig":{
+    "focusable":false  },
+  "signature.floatConfig":{
+    "focusable":false  },
+  "hover.floatConfig":{
+    "focusable":false  },
+    "coc.preferences.floatActions": false
+}
