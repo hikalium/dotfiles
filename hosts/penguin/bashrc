@@ -8,11 +8,18 @@ export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 export RA_LOG_STDERR=/tmp/ra.log
 eval `ssh-agent`
-[ -f $HOME/.cargo/env ] && . "$HOME/.cargo/env"
-
+[ -f $HOME/.cargo/env ] && 
 PATH="/home/hikalium/.platformio/penv/bin${PATH:+:${PATH}}"; export PATH;
 PATH="/home/hikalium/perl5/bin${PATH:+:${PATH}}"; export PATH;
 PERL5LIB="/home/hikalium/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
 PERL_LOCAL_LIB_ROOT="/home/hikalium/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"/home/hikalium/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/hikalium/perl5"; export PERL_MM_OPT;
+
+alias gitlp="git log -1 -p --color-words=."
+alias gitll="git log -1 --pretty=oneline --decorate=''"
+alias gitl="git log --pretty=oneline --decorate=''"
+alias gitd="git diff --color-words=."
+alias g="git"
+alias grr="git rebase -i --root"
+. "$HOME/.cargo/env"

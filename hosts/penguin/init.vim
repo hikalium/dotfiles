@@ -7,6 +7,7 @@
 " (nvim)
 " :PlugInstall
 " :CocInstall coc-rust-analyzer
+" :CocInstall coc-tsserver
 
 syntax on
 
@@ -53,6 +54,22 @@ set laststatus=2 " Show status line (0:never, 1:two or more windows, 2:always)
 " Colors
 " 22: dark green
 " 191: yellow
+" Black
+" DarkBlue
+" DarkGreen
+" DarkCyan
+" DarkRed
+" DarkMagenta
+" Brown, DarkYellow
+" LightGray, LightGrey, Gray, Grey
+" DarkGray, DarkGrey
+" Blue, LightBlue
+" Green, LightGreen
+" Cyan, LightCyan
+" Red, LightRed
+" Magenta, LightMagenta
+" Yellow, LightYellow
+" White
 " StatusLine: bottom line
 hi clear TabLine
 
@@ -78,6 +95,19 @@ hi VertSplit term=NONE cterm=NONE ctermfg=22 ctermbg=NONE
 hi Visual cterm=NONE ctermfg=black ctermbg=191
 hi SpecialKey ctermfg=23
 hi SignColumn ctermbg=NONE
+
+hi markdownH1 ctermfg=DarkRed ctermbg=NONE
+hi markdownH1Delimiter ctermfg=DarkRed ctermbg=NONE
+hi markdownH2 ctermfg=DarkGreen ctermbg=NONE
+hi markdownH2Delimiter ctermfg=DarkGreen ctermbg=NONE
+hi markdownH3 ctermfg=DarkBlue ctermbg=NONE
+hi markdownH3Delimiter ctermfg=DarkBlue ctermbg=NONE
+hi markdownCodeBlock ctermfg=cyan
+
+" highlight column width
+set textwidth=80
+set cc=+1,+2,+3,+4  " highlight three columns after 'textwidth'
+hi ColorColumn ctermbg=DarkGray
 
 " Hightlight tab chars
 set list
@@ -273,16 +303,17 @@ au FileType c set expandtab
 au FileType markdown set tabstop=2
 au FileType markdown set shiftwidth=2
 au FileType markdown set expandtab
+"au FileType markdown au BufWritePost <buffer> silent! execute "!cd /home/hikalium/repo/wasabi_book/manuscript_os/ajimi/ && cargo run -- fix %:p" | redraw!
 
 au FileType javascript set tabstop=2
 au FileType javascript set shiftwidth=2
 au FileType javascript set expandtab
-au FileType javascript noremap <buffer> = :ClangFormat<cr>
+"au FileType javascript noremap <buffer> = :ClangFormat<cr>
 
 au FileType typescript set tabstop=2
 au FileType typescript set shiftwidth=2
 au FileType typescript set expandtab
-au FileType typescript noremap <buffer> = :ClangFormat<cr>
+"au FileType typescript noremap <buffer> = :ClangFormat<cr>
 
 au FileType json set tabstop=2
 au FileType json set shiftwidth=2
