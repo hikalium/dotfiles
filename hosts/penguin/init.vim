@@ -12,8 +12,10 @@
 syntax on
 
 call plug#begin()
-	Plug 'neoclide/coc.nvim', {'branch': 'release'}
-	Plug 'rust-lang/rust.vim'
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'rust-lang/rust.vim'
+  Plug 'godlygeek/tabular'
+  Plug 'preservim/vim-markdown'
 call plug#end()
 
 set nocompatible
@@ -105,6 +107,8 @@ hi markdownH3Delimiter ctermfg=DarkBlue ctermbg=NONE
 hi markdownCodeBlock ctermfg=cyan
 
 " highlight column width
+let g:rust_recommended_style = 0
+set shiftwidth=4 softtabstop=4 expandtab
 set textwidth=80
 set cc=+1,+2,+3,+4  " highlight three columns after 'textwidth'
 hi ColorColumn ctermbg=DarkGray
@@ -303,6 +307,9 @@ au FileType c set expandtab
 au FileType markdown set tabstop=2
 au FileType markdown set shiftwidth=2
 au FileType markdown set expandtab
+au FileType markdown set nofoldenable
+au FileType markdown set complete=
+au FileType markdown let b:coc_suggest_disable = 1
 "au FileType markdown au BufWritePost <buffer> silent! execute "!cd /home/hikalium/repo/wasabi_book/manuscript_os/ajimi/ && cargo run -- fix %:p" | redraw!
 
 au FileType javascript set tabstop=2
