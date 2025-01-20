@@ -372,4 +372,6 @@ inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
 set mouse=
 
 " Load ~/.config/nvim/lua/init.lua
-lua require('init')
+if filereadable("~/.config/nvim/lua/init.lua")
+  lua require('init')
+endif
