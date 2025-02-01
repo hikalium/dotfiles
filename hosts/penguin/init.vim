@@ -36,6 +36,13 @@ if has("autocmd")
   augroup END
 endif
 
+" move vertical visually (for soft-wrapped long lines)
+nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
+nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
+
+" keep moving to next / prev lines when hit the end of lines (with cursor keys)
+set whichwrap+=<,>
+
 " Coc.nvim
 " https://github.com/neoclide/coc.nvim
 set cmdheight=2
