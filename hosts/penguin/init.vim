@@ -284,6 +284,11 @@ cnoreabbrev vs vsplit
 
 set encoding=utf-8
 
+augroup hikalium
+  " Remove all au in this group first
+  " when re-loaded
+  autocmd!
+
 au BufNewFile,BufRead *.c set filetype=c
 au BufNewFile,BufRead *.cpp set filetype=cpp
 au BufNewFile,BufRead *.cc set filetype=cpp
@@ -315,7 +320,7 @@ au FileType markdown set tabstop=2
 au FileType markdown set shiftwidth=2
 au FileType markdown set expandtab
 au FileType markdown set nofoldenable
-au FileType markdown set complete=
+au FileType markdown set complete=.,w,t
 au FileType markdown let b:coc_suggest_disable = 1
 "au FileType markdown au BufWritePost <buffer> silent! execute "!cd /home/hikalium/repo/wasabi_book/manuscript_os/ajimi/ && cargo run -- fix %:p" | redraw!
 
@@ -350,6 +355,8 @@ au FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
 au FileType fortran set noexpandtab
 
 au FileType yaml setlocal ts=4 sts=4 sw=4 expandtab
+
+augroup END
 
 let s:ir_signals_path = '/Users/hikalium/repo/remo-ir-signals/'
 let s:send_sh_path = s:ir_signals_path . '/send.sh'
