@@ -117,6 +117,7 @@ hi markdownCodeBlock ctermfg=cyan
 let g:rust_recommended_style = 0
 set shiftwidth=4 softtabstop=4 expandtab
 set textwidth=80
+set formatoptions=
 set cc=+1,+2,+3,+4  " highlight three columns after 'textwidth'
 hi ColorColumn ctermbg=DarkGray
 
