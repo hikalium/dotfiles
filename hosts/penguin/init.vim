@@ -88,131 +88,147 @@ syntax reset
 hi clear
 set background=dark
 set termguicolors
-hi Normal guifg=#dadada guibg=#004000
-hi DiffText guifg=#fc7575 guibg=NONE
-hi ErrorMsg guifg=#fc7575 guibg=NONE
-hi WarningMsg guifg=#fc7575 guibg=NONE
-hi PreProc guifg=#fc7575 guibg=NONE
-hi Exception guifg=#fc7575 guibg=NONE
-hi Error guifg=#fc7575 guibg=NONE
-hi DiffDelete guifg=#fc7575 guibg=NONE
-hi GitGutterDelete guifg=#fc7575 guibg=NONE
-hi GitGutterChangeDelete guifg=#fc7575 guibg=NONE
+
+hi! LiumRedText guifg=#fc7575 gui=none
+hi! LiumYellowText guifg=#e9ff81 gui=none
+hi! LiumGreenText guifg=#6ef8be gui=none
+hi! LiumBlueText guifg=#6da5ff gui=none
+hi! LiumPurpleText guifg=#c481ff gui=none
+hi! LiumWhiteText guifg=#ffffff gui=none
+
+hi! Normal guifg=#ffffff guibg=#002000
+hi! StatusLine gui=NONE guibg=#008000 guifg=#ffffff
+hi! StatusLineNC gui=NONE guibg=#004000 guifg=#ffffff
+hi! Visual guibg=#cccc60 guifg=#000000
+hi! LineNr guifg=#aaaaaa guibg=#002000
+hi! TabLineFill guibg=#004000
+
+
+hi! link Comment LiumRedText
+hi! link Conditional LiumYellowText
+hi! link Constant LiumGreenText
+hi! link Type LiumBlueText
+hi! link Identifier LiumWhiteText
+hi! link TabLine TabLineFill
+
+" Not sure where...
+hi CursorLine guibg=#ff0000
+hi! VertSplit gui=NONE guifg=#ff0000 guibg=NONE
+hi! DiagnosticError guifg=#ff0000
+hi! DiagnosticInfo guifg=#ff0000
+hi! DiagnosticHint guifg=#ff0000
+hi! @lsp guifg=#ff0000
+
+hi cssAttr guifg=#6de5ff guibg=NONE
+hi cssClassNameDot guifg=#c481ff guibg=NONE
+hi cssClassName guifg=#c481ff guibg=NONE
+hi cssColor guifg=#e9ff81 guibg=NONE
 hi cssIdentifier guifg=#fc7575 guibg=NONE
 hi cssImportant guifg=#fc7575 guibg=NONE
-hi Type guifg=#fc7575 guibg=NONE
-hi Identifier guifg=#fc7575 guibg=NONE
-hi PMenuSel guifg=#6ef8be guibg=NONE
-hi Constant guifg=#6ef8be guibg=NONE
-hi Repeat guifg=#6ef8be guibg=NONE
-hi DiffAdd guifg=#6ef8be guibg=NONE
-hi GitGutterAdd guifg=#6ef8be guibg=NONE
 hi cssIncludeKeyword guifg=#6ef8be guibg=NONE
-hi Keyword guifg=#6ef8be guibg=NONE
-hi IncSearch guifg=#e9ff81 guibg=NONE
-hi Title guifg=#e9ff81 guibg=NONE
-hi PreCondit guifg=#e9ff81 guibg=NONE
-hi Debug guifg=#e9ff81 guibg=NONE
-hi SpecialChar guifg=#e9ff81 guibg=NONE
-hi Conditional guifg=#e9ff81 guibg=NONE
-hi Todo guifg=#e9ff81 guibg=NONE
-hi Special guifg=#e9ff81 guibg=NONE
-hi Label guifg=#e9ff81 guibg=NONE
-hi Delimiter guifg=#e9ff81 guibg=NONE
-hi Number guifg=#e9ff81 guibg=NONE
+
 hi CursorLineNR guifg=#e9ff81 guibg=NONE
+hi Debug guifg=#e9ff81 guibg=NONE
 hi Define guifg=#e9ff81 guibg=NONE
-hi MoreMsg guifg=#e9ff81 guibg=NONE
-hi Tag guifg=#e9ff81 guibg=NONE
-hi String guifg=#e9ff81 guibg=NONE
-hi MatchParen guifg=#e9ff81 guibg=NONE
-hi Macro guifg=#e9ff81 guibg=NONE
+hi Delimiter guifg=#e9ff81 guibg=NONE
+hi DiffAdd guifg=#6ef8be guibg=NONE
 hi DiffChange guifg=#e9ff81 guibg=NONE
-hi GitGutterChange guifg=#e9ff81 guibg=NONE
-hi cssColor guifg=#e9ff81 guibg=NONE
-hi Function guifg=#6aa2ff guibg=NONE
+hi DiffDelete guifg=#fc7575 guibg=NONE
+hi DiffText guifg=#fc7575 guibg=NONE
 hi Directory guifg=#c481ff guibg=NONE
-hi markdownLinkText guifg=#c481ff guibg=NONE
-hi javaScriptBoolean guifg=#c481ff guibg=NONE
+hi Error guifg=#fc7575 guibg=NONE
+hi ErrorMsg guifg=#fc7575 guibg=NONE
+hi Exception guifg=#fc7575 guibg=NONE
+hi Function guifg=#6aa2ff guibg=NONE
+hi GitGutterAdd guifg=#6ef8be guibg=NONE
+hi GitGutterChangeDelete guifg=#fc7575 guibg=NONE
+hi GitGutterChange guifg=#e9ff81 guibg=NONE
+hi GitGutterDelete guifg=#fc7575 guibg=NONE
 hi Include guifg=#c481ff guibg=NONE
-hi Storage guifg=#c481ff guibg=NONE
-hi cssClassName guifg=#c481ff guibg=NONE
-hi cssClassNameDot guifg=#c481ff guibg=NONE
-hi Statement guifg=#6de5ff guibg=NONE
-hi Operator guifg=#6de5ff guibg=NONE
-hi cssAttr guifg=#6de5ff guibg=NONE
-
-
-hi Pmenu guifg=#dadada guibg=#454545
-hi SignColumn guibg=#272935
-hi Title guifg=#dadada
-hi LineNr guifg=#747474 guibg=#272935
+hi IncSearch guifg=#e9ff81 guibg=NONE
+hi javaScriptBoolean guifg=#c481ff guibg=NONE
+hi Keyword guifg=#6ef8be guibg=NONE
+hi Label guifg=#e9ff81 guibg=NONE
+hi Macro guifg=#e9ff81 guibg=NONE
+hi markdownLinkText guifg=#c481ff guibg=NONE
+hi MatchParen guifg=#e9ff81 guibg=NONE
+hi MoreMsg guifg=#e9ff81 guibg=NONE
 hi NonText guifg=#c481ff guibg=#272935
-hi Comment guifg=#c481ff gui=italic
-hi SpecialComment guifg=#c481ff gui=italic guibg=NONE
-hi CursorLine guibg=#454545
-hi TabLineFill gui=NONE guibg=#454545
-hi TabLine guifg=#747474 guibg=#454545 gui=NONE
-hi StatusLine gui=bold guibg=#454545 guifg=#dadada
-hi StatusLineNC gui=NONE guibg=#272935 guifg=#dadada
+hi Number guifg=#e9ff81 guibg=NONE
+hi Operator guifg=#6de5ff guibg=NONE
+hi Pmenu guifg=#dadada guibg=#454545
+hi PMenuSel guifg=#6ef8be guibg=NONE
+hi PreCondit guifg=#e9ff81 guibg=NONE
+hi PreProc guifg=#fc7575 guibg=NONE
+hi Repeat guifg=#6ef8be guibg=NONE
 hi Search guibg=#c481ff guifg=#dadada
-hi VertSplit gui=NONE guifg=#454545 guibg=NONE
-hi Visual gui=NONE guibg=#454545
-
-
-
-
-
-hi clear TabLine
-
-hi CocErrorSign ctermfg=191 ctermbg=NONE
-hi CocInfoSign ctermfg=191 ctermbg=NONE
-hi CocWarningSign ctermfg=191 ctermbg=black
-
-hi FgCocErrorFloatBgCocFloating ctermfg=9
-hi FgCocHintFloatBgCocFloating ctermfg=4
-
-hi MatchParen ctermbg=4
-hi NonText term=NONE cterm=NONE ctermfg=22 ctermbg=NONE
-hi Pmenu ctermbg=191
-hi PmenuSel ctermbg=124
-hi Comment ctermfg=191
-hi Search cterm=NONE ctermfg=black ctermbg=191
-hi SpecialKey ctermfg=23 ctermbg=NONE
-hi StatusLine cterm=NONE gui=NONE ctermfg=white ctermbg=22
-hi TabLine ctermfg=230 ctermbg=22
-hi TabLineFill ctermfg=22 ctermbg=22
-hi TabLineSel ctermfg=230 ctermbg=166
-hi VertSplit term=NONE cterm=NONE ctermfg=22 ctermbg=NONE
-hi Visual cterm=NONE ctermfg=black ctermbg=191
-hi SpecialKey ctermfg=23
-hi SignColumn ctermbg=NONE
-
-hi markdownH1 ctermfg=DarkRed ctermbg=NONE
-hi markdownH1Delimiter ctermfg=DarkRed ctermbg=NONE
-hi markdownH2 ctermfg=DarkGreen ctermbg=NONE
-hi markdownH2Delimiter ctermfg=DarkGreen ctermbg=NONE
-hi markdownH3 ctermfg=DarkBlue ctermbg=NONE
-hi markdownH3Delimiter ctermfg=DarkBlue ctermbg=NONE
-hi markdownCodeBlock ctermfg=cyan
-
-" highlight column width
-let g:rust_recommended_style = 0
-set shiftwidth=4 softtabstop=4 expandtab
-set textwidth=80
-set formatoptions=
-set cc=+1,+2,+3,+4  " highlight three columns after 'textwidth'
-hi ColorColumn ctermbg=DarkGray
-
-" Hightlight tab chars
-set list
-set listchars=tab:>_
+hi SignColumn guibg=#272935
+hi SpecialChar guifg=#e9ff81 guibg=NONE
+hi SpecialComment guifg=#c481ff gui=none guibg=NONE
+hi Special guifg=#e9ff81 guibg=NONE
+hi Statement guifg=#6de5ff guibg=NONE
+hi Storage guifg=#c481ff guibg=NONE
+hi String guifg=#e9ff81 guibg=NONE
+hi Tag guifg=#e9ff81 guibg=NONE
+hi Title guifg=#dadada
+hi Title guifg=#e9ff81 guibg=NONE
+hi Todo guifg=#e9ff81 guibg=NONE
+hi WarningMsg guifg=#fc7575 guibg=NONE
 
 augroup HighlightTrailingSpaces
 	autocmd!
 	autocmd VimEnter,WinEnter,ColorScheme * highlight TrailingSpaces term=underline guibg=red ctermbg=197
 	autocmd VimEnter,WinEnter * match TrailingSpaces /\s\+$/
 augroup END
+
+augroup HighlightOveflowColumn
+    autocmd!
+    let g:rust_recommended_style = 0
+    set shiftwidth=4 softtabstop=4 expandtab
+    set textwidth=80
+    set formatoptions=
+    set cc=+1,+2,+3,+4  " highlight three columns after 'textwidth'
+    hi ColorColumn guifg=NONE guibg=#000000
+augroup END
+
+
+
+
+
+
+
+"hi CocErrorSign ctermfg=191 ctermbg=NONE
+"hi CocInfoSign ctermfg=191 ctermbg=NONE
+"hi CocWarningSign ctermfg=191 ctermbg=black
+"
+"hi FgCocErrorFloatBgCocFloating ctermfg=9
+"hi FgCocHintFloatBgCocFloating ctermfg=4
+"
+"hi MatchParen ctermbg=4
+"hi NonText term=NONE cterm=NONE ctermfg=22 ctermbg=NONE
+"hi Pmenu ctermbg=191
+"hi PmenuSel ctermbg=124
+""hi Comment ctermfg=191
+"hi Search cterm=NONE ctermfg=black ctermbg=191
+"hi SpecialKey ctermfg=23 ctermbg=NONE
+"hi StatusLine cterm=NONE gui=NONE ctermfg=white ctermbg=22
+"hi TabLineSel ctermfg=230 ctermbg=166
+"hi VertSplit term=NONE cterm=NONE ctermfg=22 ctermbg=NONE
+"hi Visual cterm=NONE ctermfg=black ctermbg=191
+"hi SpecialKey ctermfg=23
+"hi SignColumn ctermbg=NONE
+"
+"hi markdownH1 ctermfg=DarkRed ctermbg=NONE
+"hi markdownH1Delimiter ctermfg=DarkRed ctermbg=NONE
+"hi markdownH2 ctermfg=DarkGreen ctermbg=NONE
+"hi markdownH2Delimiter ctermfg=DarkGreen ctermbg=NONE
+"hi markdownH3 ctermfg=DarkBlue ctermbg=NONE
+"hi markdownH3Delimiter ctermfg=DarkBlue ctermbg=NONE
+"hi markdownCodeBlock ctermfg=cyan
+
+" Hightlight tab chars
+set list
+set listchars=tab:>_
 
 " luochen1990/rainbow
 let g:rainbow_active = 1
