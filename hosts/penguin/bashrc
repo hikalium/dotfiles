@@ -1,7 +1,6 @@
+unalias -a
 source ~/dotfiles/common/bashrc
-alias vi=/home/hikalium/bin/nvim.appimage
-alias vim=/home/hikalium/bin/nvim.appimage
-alias nvim=/home/hikalium/bin/nvim.appimage
+source ~/dotfiles/common/bashrc_nvim.sh
 
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -16,7 +15,7 @@ PERL_LOCAL_LIB_ROOT="/home/hikalium/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LI
 PERL_MB_OPT="--install_base \"/home/hikalium/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/hikalium/perl5"; export PERL_MM_OPT;
 
-alias gitlp="git log -1 -p --color-words=."
+alias gitlp="git log -1 -p"
 alias gitll="git log -1 --pretty=oneline --decorate=''"
 alias gitl="git log --pretty=oneline --decorate=''"
 alias gitd="git diff --color-words=."

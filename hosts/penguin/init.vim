@@ -213,6 +213,7 @@ setlocal formatoptions-=r
 setlocal formatoptions-=o
 set formatoptions-=ro
 au FileType * setlocal formatoptions-=ro
+set formatoptions=
 
 " golang
 " http://pandazx.hatenablog.com/entry/2014/05/30/232911
@@ -233,7 +234,7 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 let g:rustfmt_autosave = 1
-" let g:rustfmt_command = 'rustup run nightly rustfmt'
+let g:rustfmt_command = 'rustfmt'
 
 let g:syntastic_mode_map = {
     \ "mode": "passive",

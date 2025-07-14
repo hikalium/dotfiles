@@ -5,5 +5,5 @@
     "focusable":false  },
   "hover.floatConfig":{
     "focusable":false  },
-    "coc.preferences.floatActions": false
+    "coc.preferences.floatActions": false,
 }
