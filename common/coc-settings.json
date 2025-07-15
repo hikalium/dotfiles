@@ -6,4 +6,5 @@
   "hover.floatConfig":{
     "focusable":false  },
     "coc.preferences.floatActions": false,
+  "rust-analyzer.updates.checkOnStartup": false
 }
