@@ -1,5 +1,5 @@
-" Neovim config
-
+" hikalium Config for NVIM v0.11.3
+"
 " Setup Commands:
 " (shell)
 " ~/dotfiles/scripts/setup_nvim_linux.sh
@@ -8,8 +8,6 @@
 " :PlugInstall
 " :CocInstall coc-rust-analyzer
 " :CocInstall coc-tsserver
-
-syntax on
 
 call plug#begin()
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -21,29 +19,20 @@ call plug#end()
 
 lua require('nvim-highlight-colors').setup({})
 
+syntax on
+
 set nocompatible
 set backspace=indent,eol,start
 set wildignore+=*.pdf,*.o,*.obj,*.jpg,*.png
-
 set splitbelow
 set splitright
-
 set tabstop=4
 set shiftwidth=4
-
 set autoread
-if has("autocmd")
-  augroup vimrc-checktime
-    autocmd!
-    autocmd InsertEnter,WinEnter * checktime
-  augroup END
-endif
+set mouse=
 
-" move vertical visually (for soft-wrapped long lines)
-nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
-nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
-
-" keep moving to next / prev lines when hit the end of lines (with cursor keys)
+" keep moving to next / prev lines
+" when hit the end of lines (with cursor keys)
 set whichwrap+=<,>
 
 " Coc.nvim
@@ -60,53 +49,74 @@ set statusline+=%w " Show if preview
 set statusline+=:%l " Show line number
 set statusline+=%= " align right after this
 set statusline+=\ %Y[%{&fileencoding}] " file encoding
-"set statusline+=%{coc#status()}
-set laststatus=2 " Show status line (0:never, 1:two or more windows, 2:always)
+"set statusline+=%{coc#status()} " LSP status
+
+" Show status line (0:never, 1:two or more windows, 2:always)
+set laststatus=2
+
+set guicursor=i:block
+set noshowcmd
+set langmenu=none
+" language en_US
+
+" Hightlight tab chars
+set list
+set listchars=tab:>_
 
 
+
+" **** Colorscheme settings ****
 " To dump hi config, run:
 " :enew|pu=execute('hi')
 " - StatusLine: bottom line
 
 hi clear
-set background=dark
 set termguicolors
+set background=dark
 
-hi LiumRedText guifg=#fc7575 gui=none
-hi LiumYellowText guifg=#e9ff81 gui=none
-hi LiumGreenText guifg=#6ef8be gui=none
-hi LiumBlueText guifg=#6da5ff gui=none
-hi LiumPurpleText guifg=#c481ff gui=none
-hi LiumWhiteText guifg=#ffffff gui=none
-hi LiumUnknown guifg=#ff0000 guibg=#00ff00
+hi Normal           guifg=#ffffff guibg=#002000 guisp=#ff0000 gui=NONE
 
-hi Normal guifg=#ffffff guibg=#002000
-hi StatusLine gui=NONE guibg=#008000 guifg=#ffffff
-hi StatusLineNC gui=NONE guibg=#004000 guifg=#ffffff
-hi Visual guibg=#cccc60 guifg=#000000
-hi LineNr guifg=#aaaaaa guibg=#002000
-hi TabLineFill guibg=#004000
-hi CocInlayHint guifg=#205020 guibg=NONE
-hi DiagnosticInfo guifg=#ffffff guibg=#6d85ff
-hi DiagnosticHint guifg=#ffffff guibg=#6dff85
-hi DiagnosticWarn guifg=#000000 guibg=#ffdd88
-hi DiagnosticError guifg=#000000 guibg=#ff8080
+hi LiumUnknown      guifg=#ff0000 guibg=#00ff00
+hi LiumRedText      guifg=#fc7575 guibg=NONE
+hi LiumYellowText   guifg=#e9ff81 guibg=NONE
+hi LiumGreenText    guifg=#6ef8be guibg=NONE
+hi LiumBlueText     guifg=#6da5ff guibg=NONE
+hi LiumPurpleText   guifg=#c481ff guibg=NONE
+hi LiumWhiteText    guifg=#ffffff guibg=NONE
 
-hi! link Comment LiumRedText
-hi! link Conditional LiumYellowText
-hi! link Constant LiumGreenText
-hi! link Type LiumBlueText
-hi! link Identifier LiumWhiteText
-hi! link TabLine TabLineFill
-hi! link String LiumRedText
-hi! link Operator LiumGreenText
-hi! link Statement LiumBlueText
-hi! link PreProc LiumRedText
-hi! link Function LiumBlueText
-hi! link Delimiter LiumGreenText
-hi! link Special LiumYellowText
-hi! link Title LiumGreenText
-hi! link @variable LiumPurpleText
+hi CocInlayHint     guifg=#205020 guibg=NONE
+hi CocMenuSel       guifg=NONE    guibg=#fc7575
+hi CocSearch        guifg=#ffffff guibg=#5dff20
+hi DiagnosticError  guifg=#000000 guibg=#ff8080
+hi DiagnosticHint   guifg=#ffffff guibg=#6dff85
+hi DiagnosticInfo   guifg=#ffffff guibg=#6d85ff
+hi DiagnosticWarn   guifg=#000000 guibg=#ffdd88
+hi LineNr           guifg=#aaaaaa guibg=#002000
+hi NormalFloat      guifg=#ffffff guibg=#5d8020
+hi StatusLine       guifg=#ffffff guibg=#008000
+hi StatusLineNC     guifg=#ffffff guibg=#004000
+hi TabLineFill      guifg=NONE    guibg=#004000
+hi Visual           guifg=#000000 guibg=#cccc60
+hi ErrorMsg         guifg=#ffff80 guibg=#ff0000
+hi CocErrorHighlight gui=underline guisp=#ff0000
+
+hi! link CocFloating    NormalFloat
+hi! link Comment        LiumRedText
+hi! link Conditional    LiumYellowText
+hi! link Constant       LiumGreenText
+hi! link Delimiter      LiumGreenText
+hi! link Function       LiumBlueText
+hi! link Identifier     LiumWhiteText
+hi! link Operator       LiumGreenText
+hi! link PreProc        LiumRedText
+hi! link rustKeyword    LiumGreenText
+hi! link Special        LiumYellowText
+hi! link Statement      LiumBlueText
+hi! link String         LiumRedText
+hi! link TabLine        TabLineFill
+hi! link Title          LiumGreenText
+hi! link Type           LiumBlueText
+hi! link @variable      LiumPurpleText
 
 " Not sure where...
 "hi! link CursorLine LiumUnknown
@@ -156,32 +166,29 @@ hi! link @variable LiumPurpleText
 "hi SpecialComment guifg=#c481ff gui=none guibg=NONE
 "hi Storage guifg=#c481ff guibg=NONE
 "hi Tag guifg=#e9ff81 guibg=NONE
-"hi Title guifg=#dadada
-"hi Title guifg=#e9ff81 guibg=NONE
 "hi Todo guifg=#e9ff81 guibg=NONE
 "hi WarningMsg guifg=#fc7575 guibg=NONE
 
 augroup HighlightTrailingSpaces
-	autocmd!
-	autocmd VimEnter,WinEnter,ColorScheme * highlight TrailingSpaces term=underline guibg=red ctermbg=197
-	autocmd VimEnter,WinEnter * match TrailingSpaces /\s\+$/
+        autocmd!
+        autocmd VimEnter,WinEnter,ColorScheme * highlight TrailingSpaces term=underline guibg=red ctermbg=197
+        autocmd VimEnter,WinEnter * match TrailingSpaces /\s\+$/
 augroup END
 
-augroup HighlightOveflowColumn
+fun HighlightOveflowColumn()
+    set cc=+1,+2,+3,+4  " highlight three columns after 'textwidth'
+    hi ColorColumn guifg=NONE guibg=#000000
+endfun
+
+augroup AutoHighlightOverflowColumn
     autocmd!
     let g:rust_recommended_style = 0
     set shiftwidth=4 softtabstop=4 expandtab
     set textwidth=80
     set formatoptions=
-    set cc=+1,+2,+3,+4  " highlight three columns after 'textwidth'
-    hi ColorColumn guifg=NONE guibg=#000000
+    hi ColorColumn guifg=NONE guibg=NONE
+    au FileType txt,markdown call HighlightOveflowColumn()
 augroup END
-
-
-
-
-
-
 
 "hi CocErrorSign ctermfg=191 ctermbg=NONE
 "hi CocInfoSign ctermfg=191 ctermbg=NONE
@@ -212,56 +219,52 @@ augroup END
 "hi markdownH3Delimiter ctermfg=DarkBlue ctermbg=NONE
 "hi markdownCodeBlock ctermfg=cyan
 
-" Hightlight tab chars
-set list
-set listchars=tab:>_
-
 " luochen1990/rainbow
 let g:rainbow_active = 1
 let g:rainbow_conf = {
-	\	'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
-	\	'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
-	\	'operators': '_,_',
-	\	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
-	\	'separately': {
-	\		'*': {},
-	\		'tex': {
-	\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
-	\		},
-	\		'lisp': {
-	\			'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
-	\		},
-	\		'vim': {
-	\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
-	\		},
-	\		'html': {
-	\			'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
-	\		},
-	\		'css': 0,
-	\	}
-	\}
+        \       'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
+        \       'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
+        \       'operators': '_,_',
+        \       'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
+        \       'separately': {
+        \               '*': {},
+        \               'tex': {
+        \                       'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
+        \               },
+        \               'lisp': {
+        \                       'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
+        \               },
+        \               'vim': {
+        \                       'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
+        \               },
+        \               'html': {
+        \                       'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
+        \               },
+        \               'css': 0,
+        \       }
+        \}
 
 " Show current buffer name on tab
 function! s:tabpage_label(n)
-	" use t:title if exists
-	let title = gettabvar(a:n, 'title')
-	if title !=# ''
-		return title
-	endif
-	" Get list of buffers inside a current tab
-	let bufnrs = tabpagebuflist(a:n)
-	" Highlight a current tab
-	let hi = a:n is tabpagenr() ? '%#TabLineSel#' : '%#TabLine#'
+        " use t:title if exists
+        let title = gettabvar(a:n, 'title')
+        if title !=# ''
+                return title
+        endif
+        " Get list of buffers inside a current tab
+        let bufnrs = tabpagebuflist(a:n)
+        " Highlight a current tab
+        let hi = a:n is tabpagenr() ? '%#TabLineSel#' : '%#TabLine#'
 
-	" show '+' if there are modified buffers
-	let mod = len(filter(copy(bufnrs), 'getbufvar(v:val, "&modified")')) ? '+' : ''
-	" Get current buffer
-	let curbufnr = bufnrs[tabpagewinnr(a:n) - 1]  " tabpagewinnr() is 1-indexed
-	let fname = pathshorten(bufname(curbufnr))
+        " show '+' if there are modified buffers
+        let mod = len(filter(copy(bufnrs), 'getbufvar(v:val, "&modified")')) ? '+' : ''
+        " Get current buffer
+        let curbufnr = bufnrs[tabpagewinnr(a:n) - 1]  " tabpagewinnr() is 1-indexed
+        let fname = pathshorten(bufname(curbufnr))
 
-	let label = fname . mod
+        let label = fname . mod
 
-	return '%' . a:n . 'T' . hi . ' [' . label . '] ' . '%T%#TabLineFill#'
+        return '%' . a:n . 'T' . hi . ' [' . label . '] ' . '%T%#TabLineFill#'
 endfunction
 
 function! ChompedSystem( ... )
@@ -269,12 +272,12 @@ function! ChompedSystem( ... )
 endfunction
 
 function! MakeTabLine()
-	let titles = map(range(1, tabpagenr('$')), 's:tabpage_label(v:val)')
-	let sep = ' '  " delimiter
-	let tabpages = join(titles, sep) . sep . '%#TabLineFill#%T'
-	let hostname = ChompedSystem('hostname')
-	let info = 'vim@' . hostname  " show whatever you want
-	return tabpages . '%=%#TabLine#' . info  " show tab lists on leftside, informations on rightside
+        let titles = map(range(1, tabpagenr('$')), 's:tabpage_label(v:val)')
+        let sep = ' '  " delimiter
+        let tabpages = join(titles, sep) . sep . '%#TabLineFill#%T'
+        let hostname = ChompedSystem('hostname')
+        let info = 'vim@' . hostname  " show whatever you want
+        return tabpages . '%=%#TabLine#' . info  " show tab lists on leftside, informations on rightside
 endfunction
 
 set showtabline=2
@@ -318,7 +321,6 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 let g:rustfmt_autosave = 1
-let g:rustfmt_command = 'rustfmt'
 
 let g:syntastic_mode_map = {
     \ "mode": "passive",
@@ -326,23 +328,23 @@ let g:syntastic_mode_map = {
 let g:syntastic_cpp_compiler_options=" -std=c++1z"
 
 if has('win32')
-	let s:ostype = "Win"
+        let s:ostype = "Win"
 elseif has('mac')
-	let s:ostype = "Mac"
+        let s:ostype = "Mac"
 else
-	let s:ostype = "Linux"
+        let s:ostype = "Linux"
 endif
 
 let g:clang_format#code_style = 'Google'
 let g:clang_format#detect_style_file = 1
 
 if $TMUX != ""
-	augroup titlesettings
-		autocmd!
-		autocmd BufEnter * call system("tmux rename-window " . "'[" . expand("%:t") . "]'")
-		autocmd VimLeave * call system("tmux rename-window bash")
-		autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
-	augroup END
+        augroup titlesettings
+                autocmd!
+                autocmd BufEnter * call system("tmux rename-window " . "'[" . expand("%:t") . "]'")
+                autocmd VimLeave * call system("tmux rename-window bash")
+                autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
+        augroup END
 endif
 
 set wildmode=list:longest
@@ -363,7 +365,7 @@ map Q <Nop>
 nnoremap <S-Tab> gt
 nnoremap <Tab><Tab> gT
 for i in range(1, 9)
-	execute 'nnoremap <Tab>' . i . ' ' . i . 'gt'
+        execute 'nnoremap <Tab>' . i . ' ' . i . 'gt'
 endfor
 
 cnoreabbrev tn tabnew
@@ -450,10 +452,10 @@ let s:send_sh_path = s:ir_signals_path . '/send.sh'
 let s:on_json_path = s:ir_signals_path . 'on.json'
 let s:off_json_path = s:ir_signals_path . 'off.json'
 command! TurnOnLight
-\ execute ':silent !' . s:send_sh_path . ' ' . s:on_json_path | 
+\ execute ':silent !' . s:send_sh_path . ' ' . s:on_json_path |
 \ execute ':redraw!'
 command! TurnOffLight
-\ execute ':silent !' . s:send_sh_path . ' ' . s:off_json_path | 
+\ execute ':silent !' . s:send_sh_path . ' ' . s:off_json_path |
 \ execute ':redraw!'
 
 "try
@@ -462,15 +464,24 @@ command! TurnOffLight
 "    nmap <silent> ]c :call CocAction('diagnosticPrevious')<cr>
 "endtry
 
-set guicursor=i:block
-set noshowcmd
-set langmenu=none
-" language en_US
 
 " Hit enter to select suggestion
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
 
-set mouse=
+" move vertical visually (for soft-wrapped long lines)
+nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
+nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
+
+" Check file update more frequently
+if has("autocmd")
+  augroup vimrc-checktime
+    autocmd!
+    autocmd InsertEnter,WinEnter * checktime
+  augroup END
+endif
+
+
+
 
 " Load ~/.config/nvim/lua/init.lua
 if filereadable("~/.config/nvim/lua/init.lua")
