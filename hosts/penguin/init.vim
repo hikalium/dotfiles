@@ -101,6 +101,7 @@ hi ErrorMsg         guifg=#ffff80 guibg=#ff0000
 hi CocErrorHighlight gui=underline guisp=#ff0000
 
 hi! link CocFloating    NormalFloat
+hi! link CocPumDetail   NormalFloat
 hi! link Comment        LiumRedText
 hi! link Conditional    LiumYellowText
 hi! link Constant       LiumGreenText
