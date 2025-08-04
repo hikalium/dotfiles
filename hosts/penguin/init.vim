@@ -88,7 +88,7 @@ hi CocInlayHint     guifg=#205020 guibg=NONE
 hi CocMenuSel       guifg=NONE    guibg=#fc7575
 hi CocSearch        guifg=#ffffff guibg=#5dff20
 hi DiagnosticError  guifg=#000000 guibg=#ff8080
-hi DiagnosticHint   guifg=#ffffff guibg=#6dff85
+hi DiagnosticHint   guifg=#000000 guibg=#6dff85
 hi DiagnosticInfo   guifg=#ffffff guibg=#6d85ff
 hi DiagnosticWarn   guifg=#000000 guibg=#ffdd88
 hi LineNr           guifg=#aaaaaa guibg=#002000
@@ -117,6 +117,7 @@ hi! link TabLine        TabLineFill
 hi! link Title          LiumGreenText
 hi! link Type           LiumBlueText
 hi! link @variable      LiumPurpleText
+hi! link Todo           DiagnosticHint
 
 " Not sure where...
 "hi! link CursorLine LiumUnknown
