@@ -1,0 +1,37 @@
+#!/bin/bash -e
+if [ -z "$1" ]; then
+    COMMIT_HASH="HEAD"
+else
+    COMMIT_HASH="$1"
+fi
+if ! git rev-parse --verify "$COMMIT_HASH" >/dev/null 2>&1; then
+  echo "Commit ${COMMIT_HASH} not found."
+  exit 1
+fi
+# 現在処理中のファイル名
+CURRENT_FILE=""
+git show --format="" -U0 "$COMMIT_HASH" | while IFS= read -r line; do
+  if [[ "$line" =~ ^\+\+\+\ b/(.*) ]]; then
+    CURRENT_FILE="${BASH_REMATCH[1]}"
+    continue
+  fi
+  # Hunk output is something like:
+  # @@ -Start(,Count) +Start(,Count) @@
+  if [[ "$line" =~ ^@@\ -([0-9]+)(,([0-9]+))?\ \+.* ]]; then
+    start_line="${BASH_REMATCH[1]}"
+    count="${BASH_REMATCH[3]}"
+    # If the count is empty, this is single-line change.
+    if [ -z "$count" ]; then
+      count=1
+    fi
+    # Skip if count == 0 as it is purely a new line.
+    if [ "$count" -eq 0 ]; then
+      continue
+    fi
+    end_line=$((start_line + count - 1))
+    if [ -n "$CURRENT_FILE" ]; then
+      git blame "$COMMIT_HASH^" -L "$start_line,$end_line" -- "$CURRENT_FILE" 2>/dev/null | \
+      awk -v fname="$CURRENT_FILE" '{ print "[" fname "] " $0 }'
+    fi
+  fi
+done
