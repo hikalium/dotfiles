@@ -29,14 +29,10 @@ require('nvim-highlight-colors').setup({})
 
 local nvim_lsp = require('lspconfig')
 local on_attach = function(client, bufnr)
-    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+    --buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
     -- See `:help vim.lsp.*` for documentation on any of the below functions
-    buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    nvim_lsp.rust_analyzer.setup{
-        on_attach = on_attach,
-        cmd = "rustup run rust-analyzer",
-    }
+    --buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    --buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
     vim.lsp.completion.enable(true, client.id, bufnr, {
         autotrigger=true,
         convert = function(item)
@@ -44,10 +40,17 @@ local on_attach = function(client, bufnr)
         end,
     })
 end
-
 vim.lsp.inlay_hint.enable(true)
 vim.lsp.config.rust_analyzer = {
+    on_attach = on_attach,
     cmd = {os.getenv("HOME").."/.cargo/bin/rust-analyzer"},
+    settings = {
+        ["rust-analyzer"] = {
+            check = {
+                ["allTargets"] = false
+            },
+        }
+    }
 }
 vim.lsp.enable('rust_analyzer')
 
@@ -81,20 +84,55 @@ vim.lsp.enable('rust_analyzer')
     })
   })
 
--- Avoid focusing floating windows
--- c.f. https://www.reddit.com/r/neovim/comments/nytu9c/how_to_prevent_focus_on_floating_window_created/
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-  vim.lsp.handlers.hover, { focusable = false }
-)
+vim.diagnostic.config({
+    virtual_text = true,
+    signs = true,
+    underline = true,
+    focusable = false,
+})
+
+
+
+-- `'callHierarchy/incomingCalls'`
+-- `'callHierarchy/outgoingCalls'`
+-- `'client/registerCapability'`
+-- `'client/unregisterCapability'`
+-- `'signature_help'`
+-- `'textDocument/codeLens'`
+-- `'textDocument/completion'`
+-- `'textDocument/diagnostic'`
+-- `'textDocument/documentHighlight'`
+-- `'textDocument/documentSymbol'`
+-- `'textDocument/formatting'`
+-- `'textDocument/hover'`
+-- `'textDocument/inlayHint'`
+-- `'textDocument/publishDiagnostics'`
+-- `'textDocument/rangeFormatting'`
+-- `'textDocument/rename'`
+-- `'textDocument/signatureHelp'`
+-- `'typeHierarchy/subtypes'`
+-- `'typeHierarchy/supertypes'`
+-- `'window/logMessage'`
+-- `'window/showDocument'`
+-- `'window/showMessage'`
+-- `'window/showMessageRequest'`
+-- `'window/workDoneProgress/create'`
+-- `'workspace/applyEdit'`
+-- `'workspace/configuration'`
+-- `'workspace/executeCommand'`
+-- `'workspace/inlayHint/refresh'`
+-- `'workspace/semanticTokens/refresh'`
+-- `'workspace/symbol'`
+-- `'workspace/workspaceFolders'`
 
 -- Show diagnostics on focus
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-        vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text = false,
-        underline = true,
-        signs = true,
-        focusable = false,
-    }
+        vim.lsp.diagnostic.on_publish_diagnostics, {}
+)
+-- Avoid focusing floating windows
+-- c.f. https://www.reddit.com/r/neovim/comments/nytu9c/how_to_prevent_focus_on_floating_window_created/
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+    vim.lsp.handlers.hover, {}
 )
 vim.o.winborder = 'single'
 
