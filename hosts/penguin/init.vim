@@ -12,27 +12,19 @@
 "   :set!
 
 call plug#begin()
-  Plug 'neovim/nvim-lspconfig'
-  Plug 'folke/neoconf.nvim'
   Plug 'godlygeek/tabular'
   Plug 'preservim/vim-markdown'
   Plug 'brenoprata10/nvim-highlight-colors'
-  Plug 'hrsh7th/nvim-cmp'
-  Plug 'hrsh7th/vim-vsnip'
-  Plug 'hrsh7th/vim-vsnip-integ'
 call plug#end()
 
 lua << EOF
 
-require("neoconf").setup({})
+vim.o.winborder = 'single'
+
 require('nvim-highlight-colors').setup({})
 
-local nvim_lsp = require('lspconfig')
+vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc', {})
 local on_attach = function(client, bufnr)
-    --buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    --buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    --buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
     vim.lsp.completion.enable(true, client.id, bufnr, {
         autotrigger=true,
         convert = function(item)
@@ -50,45 +42,35 @@ vim.lsp.config.rust_analyzer = {
                 ["allTargets"] = false
             },
         }
-    }
+    },
+    handlers = {
+        ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {border = "single"}),
+        ["textDocument/codeLens"] = vim.lsp.with(vim.lsp.handlers.code_lens, {border = "single"}),
+        ["textDocument/completion"] = vim.lsp.with(vim.lsp.handlers.completion, {border = "single"}),
+        ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {border = "single"}),
+        ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {border = "single"}),
+        ["signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {border = "single"}),
+    },
 }
 vim.lsp.enable('rust_analyzer')
 
-  -- Set up nvim-cmp.
-  local cmp = require'cmp'
-
-  cmp.setup({
-    snippet = {
-      -- REQUIRED - you must specify a snippet engine
-      expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-        vim.snippet.expand(args.body) -- For native neovim snippets (Neovim v0.10+)
-      end,
-    },
-    window = {
-      completion = cmp.config.window.bordered(),
-      documentation = cmp.config.window.bordered(),
-    },
-    mapping = cmp.mapping.preset.insert({
-      ['j'] = cmp.mapping.scroll_docs(-1),
-      ['k'] = cmp.mapping.scroll_docs(1),
-      ['<C-p>'] = cmp.mapping.complete(),
-      ['<ESC>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-    }),
-    sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
-      { name = 'vsnip' }, -- For vsnip users.
-    }, {
-      { name = 'buffer' },
-    })
-  })
-
 vim.diagnostic.config({
-    virtual_text = true,
+virtual_text = { prefix = '<< ' },
     signs = true,
     underline = true,
     focusable = false,
+    float = { border = "single" }
+})
+
+vim.diagnostic.config({
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = 'X',
+            [vim.diagnostic.severity.WARN]  = '!',
+            [vim.diagnostic.severity.INFO]  = '>',
+            [vim.diagnostic.severity.HINT]  = '?',
+        }
+    }
 })
 
 
@@ -126,15 +108,18 @@ vim.diagnostic.config({
 -- `'workspace/workspaceFolders'`
 
 -- Show diagnostics on focus
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-        vim.lsp.diagnostic.on_publish_diagnostics, {}
-)
--- Avoid focusing floating windows
--- c.f. https://www.reddit.com/r/neovim/comments/nytu9c/how_to_prevent_focus_on_floating_window_created/
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-    vim.lsp.handlers.hover, {}
-)
-vim.o.winborder = 'single'
+--vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+--        vim.lsp.diagnostic.on_publish_diagnostics, {}
+--)
+---- Avoid focusing floating windows
+---- c.f. https://www.reddit.com/r/neovim/comments/nytu9c/how_to_prevent_focus_on_floating_window_created/
+--vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+--    vim.lsp.handlers.hover, {}
+--)
+--
+--vim.lsp.handlers["textDocument/completion"] = vim.lsp.with(
+--    vim.lsp.handlers.completion, {border = "single"}
+--)
 
 EOF
 
@@ -212,7 +197,8 @@ hi DiagnosticHint   guifg=#000000 guibg=#6dff85
 hi DiagnosticInfo   guifg=#ffffff guibg=#6d85ff
 hi DiagnosticWarn   guifg=#000000 guibg=#ffdd88
 hi LineNr           guifg=#aaaaaa guibg=#002000
-hi NormalFloat      guifg=#ffffff guibg=#004000
+"hi NormalFloat      guifg=#ffffff guibg=#004000
+hi NormalFloat      guifg=#dadada guibg=#454545
 hi StatusLine       guifg=#ffffff guibg=#008000
 hi StatusLineNC     guifg=#ffffff guibg=#004000
 hi TabLineFill      guifg=NONE    guibg=#004000
@@ -221,6 +207,8 @@ hi ErrorMsg         guifg=#ffff80 guibg=#ff0000
 
 
 hi! link DiagnosticFloatingError    LiumRedText
+hi! link DiagnosticFloatingHint     LiumGreenText
+hi! link DiagnosticFloatingWarn     LiumYellowText
 hi! link Comment                    LiumRedText
 hi! link Conditional                LiumYellowText
 hi! link Constant                   LiumGreenText
@@ -240,6 +228,8 @@ hi! link @variable                  LiumPurpleText
 hi! link TabLine        TabLineFill
 hi! link Todo           DiagnosticHint
 
+hi Pmenu guifg=#dadada guibg=#454545
+hi PMenuSel guifg=#6ef8be guibg=NONE
 "hi CocErrorHighlight gui=underline guisp=#ff0000
 "hi CocInlayHint     guifg=#205020 guibg=NONE
 "hi CocMenuSel       guifg=NONE    guibg=#fc7575
@@ -286,8 +276,6 @@ hi! link Todo           DiagnosticHint
 "hi MoreMsg guifg=#e9ff81 guibg=NONE
 "hi NonText guifg=#c481ff guibg=#272935
 "hi Number guifg=#e9ff81 guibg=NONE
-"hi Pmenu guifg=#dadada guibg=#454545
-"hi PMenuSel guifg=#6ef8be guibg=NONE
 "hi PreCondit guifg=#e9ff81 guibg=NONE
 "hi Repeat guifg=#6ef8be guibg=NONE
 "hi Search guibg=#c481ff guifg=#dadada
