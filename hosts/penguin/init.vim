@@ -41,7 +41,9 @@ set cmdheight=2
 set updatetime=300
 
 " Status Line Settings
-set statusline=%F " Show file name
+set statusline=
+set statusline+=%F " Show full file path
+"set statusline+=%f " Show raw file path
 set statusline+=%m " Show modification
 set statusline+=%r " Show if readonly
 set statusline+=%h " Show if help
@@ -262,7 +264,8 @@ function! s:tabpage_label(n)
         let mod = len(filter(copy(bufnrs), 'getbufvar(v:val, "&modified")')) ? '+' : ''
         " Get current buffer
         let curbufnr = bufnrs[tabpagewinnr(a:n) - 1]  " tabpagewinnr() is 1-indexed
-        let fname = pathshorten(bufname(curbufnr))
+        " let fname = pathshorten(bufname(curbufnr))
+        let fname = bufname(curbufnr)
 
         let label = fname . mod
 
