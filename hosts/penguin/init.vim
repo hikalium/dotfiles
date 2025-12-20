@@ -6,22 +6,84 @@
 " source ~/.bashrc
 " (nvim)
 " :PlugInstall
-" :CocInstall coc-rust-analyzer
-" :CocInstall coc-tsserver
 
 call plug#begin()
   Plug 'neovim/nvim-lspconfig'
   Plug 'folke/neoconf.nvim'
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  Plug 'rust-lang/rust.vim'
   Plug 'godlygeek/tabular'
   Plug 'preservim/vim-markdown'
   Plug 'brenoprata10/nvim-highlight-colors'
+  Plug 'hrsh7th/nvim-cmp'
+  Plug 'hrsh7th/vim-vsnip'
+  Plug 'hrsh7th/vim-vsnip-integ'
 call plug#end()
 
-" lua require("neoconf").setup({})
+lua << EOF
 
-lua require('nvim-highlight-colors').setup({})
+require("neoconf").setup({})
+require('nvim-highlight-colors').setup({})
+
+local nvim_lsp = require('lspconfig')
+local on_attach = function(client, bufnr)
+    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+    -- See `:help vim.lsp.*` for documentation on any of the below functions
+    buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+    nvim_lsp.rust_analyzer.setup{
+        on_attach = on_attach,
+        cmd = "rustup run rust-analyzer",
+    }
+    vim.lsp.completion.enable(true, client.id, bufnr, {
+        autotrigger=true,
+        convert = function(item)
+            return { abbr = item.label:gsub('%b()', '') }
+        end,
+    })
+end
+
+vim.lsp.inlay_hint.enable(true)
+vim.lsp.config.rust_analyzer = {
+    cmd = {os.getenv("HOME").."/.cargo/bin/rust-analyzer"},
+}
+vim.lsp.enable('rust_analyzer')
+
+  -- Set up nvim-cmp.
+  local cmp = require'cmp'
+
+  cmp.setup({
+    snippet = {
+      -- REQUIRED - you must specify a snippet engine
+      expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+        vim.snippet.expand(args.body) -- For native neovim snippets (Neovim v0.10+)
+      end,
+    },
+    window = {
+      completion = cmp.config.window.bordered(),
+      documentation = cmp.config.window.bordered(),
+    },
+    mapping = cmp.mapping.preset.insert({
+      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      ['<C-p>'] = cmp.mapping.complete(),
+      ['<C-e>'] = cmp.mapping.abort(),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    }),
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+      { name = 'vsnip' }, -- For vsnip users.
+    }, {
+      { name = 'buffer' },
+    })
+  })
+
+-- Avoid focusing floating windows
+-- c.f. https://www.reddit.com/r/neovim/comments/nytu9c/how_to_prevent_focus_on_floating_window_created/
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+  vim.lsp.handlers.hover, { focusable = false }
+)
+
+EOF
 
 syntax on
 
@@ -34,13 +96,13 @@ set tabstop=4
 set shiftwidth=4
 set autoread
 set mouse=
+"set complete=Fvsnip#completefunc
 
 " keep moving to next / prev lines
 " when hit the end of lines (with cursor keys)
 set whichwrap+=<,>
 
 " Coc.nvim
-" https://github.com/neoclide/coc.nvim
 set cmdheight=2
 set updatetime=300
 
@@ -55,7 +117,6 @@ set statusline+=%w " Show if preview
 set statusline+=:%l " Show line number
 set statusline+=%= " align right after this
 set statusline+=\ %Y[%{&fileencoding}] " file encoding
-"set statusline+=%{coc#status()} " LSP status
 
 " Show status line (0:never, 1:two or more windows, 2:always)
 set laststatus=2
@@ -190,7 +251,6 @@ endfun
 
 augroup AutoHighlightOverflowColumn
     autocmd!
-    let g:rust_recommended_style = 0
     set shiftwidth=4 softtabstop=4 expandtab
     set textwidth=80
     set formatoptions=
@@ -295,13 +355,9 @@ set tabline=%!MakeTabLine()
 
 set number
 set hlsearch
-"set printoptions=number:y,left:10mm
 set background=light
-"set printexpr=system('open\ -a\ Preview\ '.v:fname_in)\ .\ v:shell_error
-"set printfont=Source_Code_Pro:h10
 let g:localvimrc_persistent=2 " save whether trusted or not
 
-"let g:neocomplete#enable_at_startup = 1
 let g:js_indent_typescript = 0
 set noautoindent
 set nosmartindent
@@ -328,11 +384,6 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-
-" Disable rust.vim 's rustfmt on save.
-" coc-rust-analyzer handles the format better.
-let g:rustfmt_autosave = 0
-let g:rustfmt_command = 'cargo fmt'
 
 let g:syntastic_mode_map = {
     \ "mode": "passive",
@@ -398,7 +449,7 @@ au BufNewFile,BufRead *.ejs set filetype=html
 au BufNewFile,BufRead *.satyh set filetype=satysfi
 au BufNewFile,BufRead *.pl set filetype=
 
-autocmd FileType go AutoFormatBuffer gofmt
+au FileType go AutoFormatBuffer gofmt
 
 au FileType asm set tabstop=2
 au FileType asm set shiftwidth=2
@@ -422,18 +473,14 @@ au FileType markdown set shiftwidth=2
 au FileType markdown set expandtab
 au FileType markdown set nofoldenable
 au FileType markdown set complete=.,w,t
-au FileType markdown let b:coc_suggest_disable = 1
-"au FileType markdown au BufWritePost <buffer> silent! execute "!cd /home/hikalium/repo/wasabi_book/manuscript_os/ajimi/ && cargo run -- fix %:p" | redraw!
 
 au FileType javascript set tabstop=2
 au FileType javascript set shiftwidth=2
 au FileType javascript set expandtab
-"au FileType javascript noremap <buffer> = :ClangFormat<cr>
 
 au FileType typescript set tabstop=2
 au FileType typescript set shiftwidth=2
 au FileType typescript set expandtab
-"au FileType typescript noremap <buffer> = :ClangFormat<cr>
 
 au FileType json set tabstop=2
 au FileType json set shiftwidth=2
@@ -457,6 +504,13 @@ au FileType fortran set noexpandtab
 
 au FileType yaml setlocal ts=4 sts=4 sw=4 expandtab
 
+function! s:RustConfigs()
+    syntax enable
+    filetype plugin indent on
+    au BufWritePre *.rs lua vim.lsp.buf.format()
+endfunction
+au FileType rust call s:RustConfigs()
+
 augroup END
 
 let s:ir_signals_path = '/Users/hikalium/repo/remo-ir-signals/'
@@ -470,16 +524,6 @@ command! TurnOffLight
 \ execute ':silent !' . s:send_sh_path . ' ' . s:off_json_path |
 \ execute ':redraw!'
 
-"try
-" hit [c in normal mode to jump to next error
-"    nmap <silent> [c :call CocAction('diagnosticNext')<cr>
-"    nmap <silent> ]c :call CocAction('diagnosticPrevious')<cr>
-"endtry
-
-
-" Hit enter to select suggestion
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
-
 " move vertical visually (for soft-wrapped long lines)
 nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
 nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
@@ -492,10 +536,6 @@ if has("autocmd")
   augroup END
 endif
 
-
-
-
-" Load ~/.config/nvim/lua/init.lua
 if filereadable("~/.config/nvim/lua/init.lua")
   lua require('init')
 endif
