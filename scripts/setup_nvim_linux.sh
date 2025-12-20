@@ -1,5 +1,5 @@
 #!/bin/bash -ex
-NVIM_VERSION=v0.9.5
+NVIM_VERSION=v0.11.5
 if nvim --version | grep "NVIM ${NVIM_VERSION}" || nvim --version | grep NVIM | grep dev ; then
 	echo "$(nvim --version | grep NVIM) is installed"
 	export NVIM=`which nvim`
@@ -10,7 +10,7 @@ else
 	cd ~
 	mkdir -p bin
 	cd bin
-	wget -N https://github.com/neovim/neovim/releases/download/${NVIM_VERSION}/nvim.appimage
+	wget -O nvim.appimage https://github.com/neovim/neovim/releases/download/${NVIM_VERSION}/nvim-linux-x86_64.appimage
 	export NVIM=`readlink -f nvim.appimage`
 	chmod u+x ${NVIM}
 	${NVIM} --version

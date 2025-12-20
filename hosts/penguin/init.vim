@@ -10,12 +10,16 @@
 " :CocInstall coc-tsserver
 
 call plug#begin()
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'folke/neoconf.nvim'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'rust-lang/rust.vim'
   Plug 'godlygeek/tabular'
   Plug 'preservim/vim-markdown'
   Plug 'brenoprata10/nvim-highlight-colors'
 call plug#end()
+
+" lua require("neoconf").setup({})
 
 lua require('nvim-highlight-colors').setup({})
 
