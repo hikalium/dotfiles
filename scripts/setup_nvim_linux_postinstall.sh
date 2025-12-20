@@ -13,6 +13,11 @@ if ! nvm version node ; then
 	nvm install node
 fi
 
+if ! [ -f "${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/autoload/plug.vim" ] ; then
+    curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+fi
+
 export NVIM=`alias nvim | cut -d '=' -f 2 | sed -e "s/^'//" -e "s/'$//" || which nvim`
 [ "${NVIM}" != "" ] || { echo "FAIL: nvim not found" ; exit 1 ; }
 [ -f ${NVIM} ] || { echo "FAIL: nvim not found" ; exit 1 ; }

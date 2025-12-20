@@ -6,6 +6,10 @@
 " source ~/.bashrc
 " (nvim)
 " :PlugInstall
+"
+" Debug guide
+" To print all options with non-default value, run:
+"   :set!
 
 call plug#begin()
   Plug 'neovim/nvim-lspconfig'
@@ -83,7 +87,21 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
   vim.lsp.handlers.hover, { focusable = false }
 )
 
+-- Show diagnostics on focus
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+        vim.lsp.diagnostic.on_publish_diagnostics, {
+        virtual_text = false,
+        underline = true,
+        signs = true,
+        focusable = false,
+    }
+)
+vim.o.winborder = 'single'
+
 EOF
+
+autocmd CursorHold * lua vim.diagnostic.open_float()
+autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()
 
 syntax on
 
@@ -151,41 +169,46 @@ hi LiumBlueText     guifg=#6da5ff guibg=NONE
 hi LiumPurpleText   guifg=#c481ff guibg=NONE
 hi LiumWhiteText    guifg=#ffffff guibg=NONE
 
-hi CocInlayHint     guifg=#205020 guibg=NONE
-hi CocMenuSel       guifg=NONE    guibg=#fc7575
-hi CocSearch        guifg=#ffffff guibg=#5dff20
 hi DiagnosticError  guifg=#000000 guibg=#ff8080
 hi DiagnosticHint   guifg=#000000 guibg=#6dff85
 hi DiagnosticInfo   guifg=#ffffff guibg=#6d85ff
 hi DiagnosticWarn   guifg=#000000 guibg=#ffdd88
 hi LineNr           guifg=#aaaaaa guibg=#002000
-hi NormalFloat      guifg=#ffffff guibg=#5d8020
+hi NormalFloat      guifg=#ffffff guibg=#004000
 hi StatusLine       guifg=#ffffff guibg=#008000
 hi StatusLineNC     guifg=#ffffff guibg=#004000
 hi TabLineFill      guifg=NONE    guibg=#004000
 hi Visual           guifg=#000000 guibg=#cccc60
 hi ErrorMsg         guifg=#ffff80 guibg=#ff0000
-hi CocErrorHighlight gui=underline guisp=#ff0000
 
-hi! link CocFloating    NormalFloat
-hi! link CocPumDetail   NormalFloat
-hi! link Comment        LiumRedText
-hi! link Conditional    LiumYellowText
-hi! link Constant       LiumGreenText
-hi! link Delimiter      LiumGreenText
-hi! link Function       LiumBlueText
-hi! link Identifier     LiumWhiteText
-hi! link Operator       LiumGreenText
-hi! link PreProc        LiumRedText
-hi! link rustKeyword    LiumGreenText
-hi! link Special        LiumYellowText
-hi! link Statement      LiumBlueText
-hi! link String         LiumRedText
+
+hi! link DiagnosticFloatingError    LiumRedText
+hi! link Comment                    LiumRedText
+hi! link Conditional                LiumYellowText
+hi! link Constant                   LiumGreenText
+hi! link Delimiter                  LiumGreenText
+hi! link Function                   LiumBlueText
+hi! link Identifier                 LiumWhiteText
+hi! link Operator                   LiumGreenText
+hi! link PreProc                    LiumRedText
+hi! link rustKeyword                LiumGreenText
+hi! link Special                    LiumYellowText
+hi! link Statement                  LiumBlueText
+hi! link String                     LiumRedText
+hi! link Title                      LiumGreenText
+hi! link Type                       LiumBlueText
+hi! link @variable                  LiumPurpleText
+
 hi! link TabLine        TabLineFill
-hi! link Title          LiumGreenText
-hi! link Type           LiumBlueText
-hi! link @variable      LiumPurpleText
 hi! link Todo           DiagnosticHint
+
+"hi CocErrorHighlight gui=underline guisp=#ff0000
+"hi CocInlayHint     guifg=#205020 guibg=NONE
+"hi CocMenuSel       guifg=NONE    guibg=#fc7575
+"hi CocSearch        guifg=#ffffff guibg=#5dff20
+"
+"hi! link CocFloating    NormalFloat
+"hi! link CocPumDetail   NormalFloat
 
 " Not sure where...
 "hi! link CursorLine LiumUnknown
