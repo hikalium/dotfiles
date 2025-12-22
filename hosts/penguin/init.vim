@@ -10,6 +10,8 @@
 " Debug guide
 " To print all options with non-default value, run:
 "   :set!
+" To see LSP capabilities, run:
+"   :lua =vim.lsp.get_clients()[1].server_capabilities
 
 call plug#begin()
   Plug 'neovim/nvim-lspconfig'
@@ -28,9 +30,12 @@ lua << EOF
 
 vim.o.winborder = 'single'
 
-vim.lsp.config.rust_analyzer = {
+vim.lsp.config('rust_analyzer', {
     on_attach = function(client, bufnr)
-        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+            --local mode = vim.api.nvim_get_mode().mode
+            vim.defer_fn(function()
+            vim.lsp.inlay_hint.enable(true)
+            end, 5000)
     end,
     cmd = {os.getenv("HOME").."/.cargo/bin/rust-analyzer"},
     settings = {
@@ -41,7 +46,7 @@ vim.lsp.config.rust_analyzer = {
             check = {
                 ["allTargets"] = false
             },
-            chec
+            checkOnSave = true,
         }
     },
     handlers = {
@@ -51,9 +56,8 @@ vim.lsp.config.rust_analyzer = {
         ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {border = "single"}),
         ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {border = "single"}),
         ["signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {border = "single"}),
-        ['textDocument/inlayHint'] = function() end
     },
-}
+})
 vim.lsp.enable('rust_analyzer')
 
 vim.diagnostic.config({
@@ -99,8 +103,6 @@ vim.diagnostic.config({
         },
     },
     mapping = cmp.mapping.preset.insert({
-        ['<C-n>'] = { c = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }) },
-        ['<C-p>'] = { c = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }) },
         ['<ESC>'] = cmp.mapping.abort(),
         ['<CR>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
@@ -116,12 +118,6 @@ vim.diagnostic.config({
     }, {
       { name = 'buffer' },
     })
-  })
-
-  -- Set up lspconfig.
-  local capabilities = require('cmp_nvim_lsp').default_capabilities()
-  vim.lsp.config('rust-analyzer', {
-    capabilities = capabilities
   })
 
 -- Completion Menu Navigation
@@ -143,7 +139,6 @@ end)
 EOF
 
 autocmd CursorHold * lua vim.diagnostic.open_float({focusable = false})
-"autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()
 
 syntax on
 
@@ -532,6 +527,3 @@ if has("autocmd")
   augroup END
 endif
 
-"if filereadable("~/.config/nvim/lua/init.lua")
-"  lua require('init')
-"endif
