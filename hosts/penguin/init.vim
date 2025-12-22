@@ -49,14 +49,6 @@ vim.lsp.config('rust_analyzer', {
             checkOnSave = true,
         }
     },
-    handlers = {
-        ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {border = "single"}),
-        ["textDocument/codeLens"] = vim.lsp.with(vim.lsp.handlers.code_lens, {border = "single"}),
-        ["textDocument/completion"] = vim.lsp.with(vim.lsp.handlers.completion, {border = "single"}),
-        ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {border = "single"}),
-        ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {border = "single"}),
-        ["signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {border = "single"}),
-    },
 })
 vim.lsp.enable('rust_analyzer')
 
@@ -111,30 +103,46 @@ vim.diagnostic.config({
             fallback()
           end
         end, { "i", "s" }),
+        ["<Tab>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_next_item()
+            -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
+            -- they way you will only jump inside the snippet region
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
+        ["<S-Tab>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_prev_item()
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
     }),
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
-      { name = 'vsnip' }, -- For vsnip users.
+      -- { name = 'vsnip' }, -- For vsnip users.
     }, {
       { name = 'buffer' },
     })
   })
 
 -- Completion Menu Navigation
-vim.keymap.set('i', '<Tab>', function(fallback)
-    if cmp.visible() then
-        cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-    else
-        return "<Tab>"
-    end
-end)
-vim.keymap.set('i', '<S-Tab>', function(fallback)
-    if cmp.visible() then
-        cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
-    else
-        return "<S-Tab>"
-    end
-end)
+--vim.keymap.set('i', '<TAB>', function(fallback)
+--    if (cmp.visible() and false) then
+--        cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+--    else
+--        return "<TAB>"
+--    end
+--end, {remap = true})
+--vim.keymap.set('i', '<S-TAB>', function(fallback)
+--    if (cmp.visible() and false) then
+--        cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+--    else
+--        return "<S-TAB>"
+--    end
+--end, {remap = true})
 
 EOF
 
@@ -416,11 +424,11 @@ map Q <Nop>
 
 " Use Tab key to move between tabs
 " http://blog.remora.cx/2012/09/use-tabpage.html
-nnoremap <S-Tab> gt
-nnoremap <Tab><Tab> gT
-for i in range(1, 9)
-        execute 'nnoremap <Tab>' . i . ' ' . i . 'gt'
-endfor
+"nnoremap <S-Tab> gt
+"nnoremap <Tab><Tab> gT
+"for i in range(1, 9)
+"        execute 'nnoremap <Tab>' . i . ' ' . i . 'gt'
+"endfor
 
 cnoreabbrev tn tabnew
 cnoreabbrev vs vsplit
