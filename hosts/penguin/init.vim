@@ -37,6 +37,16 @@ vim.lsp.config('rust_analyzer', {
             vim.lsp.inlay_hint.enable(true)
             end, 5000)
     end,
+    root_dir = function(bufnr, on_dir)
+      path_of_buf = vim.fs.dirname(vim.fn.expand('%'))
+      root_dir = vim.fs.dirname(vim.fs.find({'Cargo.toml'}, {
+          path = path_of_buf,
+          upward = true,
+      })[1])
+      root_dir = vim.fs.abspath(vim.fs.normalize(root_dir))
+      print("Using root_dir "..root_dir)
+      on_dir(root_dir)
+    end,
     cmd = {os.getenv("HOME").."/.cargo/bin/rust-analyzer"},
     settings = {
         ["rust-analyzer"] = {
@@ -95,10 +105,13 @@ vim.diagnostic.config({
         },
     },
     mapping = cmp.mapping.preset.insert({
-        ['<ESC>'] = cmp.mapping.abort(),
+        ['<ESC>'] = cmp.mapping(function(fallback)
+            cmp.abort()
+            fallback() -- also call fallback to make ESC work as expected
+        end, { "i", "s" }),
         ['<CR>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
-              cmp.confirm()
+              cmp.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert })
           else
             fallback()
           end
@@ -144,6 +157,19 @@ vim.diagnostic.config({
 --    end
 --end, {remap = true})
 
+function hikalium_diag_status()
+    diag_status = ""
+    error_count = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
+    if error_count ~= 0 then
+        diag_status = diag_status..("%#DiagnosticSignError#".."E"..error_count)
+    end
+    warn_count = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARNING })
+    if warn_count ~= 0 then
+        diag_status = diag_status..("%#DiagnosticSignWarn#".."W"..warn_count)
+    end
+    return diag_status.."%*" -- reset formatting at the end
+end
+
 EOF
 
 autocmd CursorHold * lua vim.diagnostic.open_float({focusable = false})
@@ -170,6 +196,9 @@ set cmdheight=2
 set updatetime=300
 
 " Status Line Settings
+func! HikaliumDiagStatus()
+    return v:lua.hikalium_diag_status()
+endfunc
 set statusline=
 set statusline+=%F " Show full file path
 "set statusline+=%f " Show raw file path
@@ -179,6 +208,7 @@ set statusline+=%h " Show if help
 set statusline+=%w " Show if preview
 set statusline+=:%l " Show line number
 set statusline+=%= " align right after this
+set statusline+=%{%HikaliumDiagStatus()%}
 set statusline+=\ %Y[%{&fileencoding}] " file encoding
 
 " Show status line (0:never, 1:two or more windows, 2:always)
