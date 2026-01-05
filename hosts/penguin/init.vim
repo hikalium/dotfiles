@@ -135,7 +135,8 @@ vim.diagnostic.config({
     }),
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
-      -- { name = 'vsnip' }, -- For vsnip users.
+      { name = 'path' },
+      { name = 'buffer' },
     }, {
       { name = 'buffer' },
     })
@@ -537,6 +538,7 @@ function! s:RustConfigs()
     syntax enable
     filetype plugin indent on
     au BufWritePre *.rs lua vim.lsp.buf.format()
+    set complete=.,w,t
 endfunction
 au FileType rust call s:RustConfigs()
 
