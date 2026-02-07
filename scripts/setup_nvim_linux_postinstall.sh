@@ -2,8 +2,8 @@
 source ~/.bashrc || true
 export NVM_DIR="$HOME/.config/nvm"
 if ! nvm --version ; then
-	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
 	mkdir -p ${NVM_DIR}
+	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
 fi
 
 [ -f "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
