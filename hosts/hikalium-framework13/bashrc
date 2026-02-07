@@ -28,4 +28,5 @@ alias grr="git rebase -i --root"
 alias vi=$HOME/bin/nvim.appimage
 alias vim=$HOME/bin/nvim.appimage
 alias nvim=$HOME/bin/nvim.appimage
+export GIT_EDITOR=~/bin/nvim.appimage
 }
