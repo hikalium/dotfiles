@@ -1,13 +1,13 @@
 # dotfiles
 dotfiles for hikalium
 
-## Crostini
+## Crostini / Ubuntu
 
 ```
-curl https://raw.githubusercontent.com/hikalium/dotfiles/master/setup_crostini.sh | bash -xe
+curl https://raw.githubusercontent.com/hikalium/dotfiles/master/setup_linux.sh | bash -xe
 ```
 
-## macOS
+## macOS ( unmaintained )
 ```
 mkdir -p ~/Desktop/SS && defaults write com.apple.screencapture location ~/Desktop/SS
 

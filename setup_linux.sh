@@ -1,6 +1,11 @@
 #!/bin/bash -ex
+
 cd ~
 echo "HOME dir: ${HOME}"
+
+sudo apt update
+sudo apt install -y git curl fuse wget build-essential tmux minicom bind9-dnsutils wl-clipboard
+
 if [ -d dotfiles ] ; then
 	echo "dotfiles is checked out already."
 else
@@ -8,8 +13,7 @@ else
 fi
 cd dotfiles
 git pull --no-rebase https://github.com/hikalium/dotfiles.git
-sudo apt update
-sudo apt install -y fuse wget build-essential tmux minicom bind9-dnsutils wl-clipboard
+
 ./scripts/setup_git.sh
 ./scripts/setup_nvim_linux.sh
 source ~/.bashrc || true
