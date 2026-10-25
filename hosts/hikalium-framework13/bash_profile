@@ -1,1 +1,6 @@
 source /home/hikalium/dotfiles/common/bash_profile
+. "$HOME/.cargo/env"
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/hikalium/.local/bin:$PATH"

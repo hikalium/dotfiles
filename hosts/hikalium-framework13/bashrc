@@ -30,3 +30,20 @@ alias vim=$HOME/bin/nvim.appimage
 alias nvim=$HOME/bin/nvim.appimage
 export GIT_EDITOR=~/bin/nvim.appimage
 }
+export LANG=C
+export LC_CTYPE=ja_JP.UTF-8
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/hikalium/.local/bin:$PATH"
+
+
+
+
+
+export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+
+# GnuPGに現在の端末を知らせる。
+# gpg-connect-agent updatestartuptty /bye
+# may be needed
+export GPG_TTY="$(tty)"

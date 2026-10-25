@@ -24,6 +24,7 @@ call plug#begin()
   Plug 'hrsh7th/cmp-path'
   Plug 'hrsh7th/cmp-cmdline'
   Plug 'hrsh7th/nvim-cmp'
+  Plug 'kevinhwang91/nvim-ibus-sw'
 call plug#end()
 
 lua << EOF
@@ -567,3 +568,8 @@ if has("autocmd")
   augroup END
 endif
 
+" https://github.com/kevinhwang91/gnome-shell-ibus-switcher
+" Only for local ubuntu shell
+lua << EOF
+require('ibus-sw').setup()
+EOF
